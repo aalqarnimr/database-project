@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #FFF5E0;
+        }
+
+        header {
+            background-color: #141E46;
+            color: #FFF5E0;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 60px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            background-color: #FF6969;
+            padding: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #FFF5E0;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #FFF5E0;
+            color: #FF6969;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin: 50px;
+        }
+
+        /* Your other styles here */
+
+        /* Additional styles for buttons */
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            width: 60%;
+            margin-top: 20px;
+        }
+
+        .welcome-button {
+            text-decoration: none;
+            color: #FFF5E0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .welcome-button:nth-child(1) {
+            background-color: #FF6969;
+        }
+
+        .welcome-button:nth-child(2) {
+            background-color: #C70039;
+        }
+
+        .welcome-button:hover {
+            filter: brightness(1.2);
+        }
+
+        /* Additional styles for signin/signup buttons */
+        .signin-button,
+        .signup-button {
+            text-decoration: none;
+            color: #FFF5E0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .signin-button {
+            background-color: #FF6969;
+        }
+
+        .signup-button {
+            background-color: #C70039;
+        }
+
+        .signin-button:hover,
+        .signup-button:hover {
+            filter: brightness(1.2);
+        }
+        .user-history,.incoming-donations,.donation-reports{
+            width: 100wh;
+            background-color: white;
+            height: 100px;
+            border-radius: 5px;
+            border: 1px solid black;
+
+        }
+        .user-history li{
+            list-style: none;
+        }
+        .reports-types {
+            display: flex;
+            flex-direction: row;
+            flex: 1;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sign Up for Blood Donation</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="profile.html">Reports</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Donors-recepients:</h1>
+        <section class="incoming-donations">
+
+        </section>
+        <h1>Requests:</h1>
+        <section class="user-history">
+            <ul>
+                <li>
+
+                </li>
+            </ul>
+        </section>
+        <h1>Reports:</h1>
+        <h2>Donations received:</h2>
+        <div class="reports-types">
+
+            <label for="month-select">Select Month:</label>
+        <select id="month-select">
+            <option value="All" selected>All</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>        </select>
+
+        <label for="week-select">Select Week:</label>
+        <select id="week-select">
+            <option value="all" selected>All</option>
+            <option value="Week 1">Week 1</option>
+            <option value="Week 2">Week 2</option>
+            <option value="Week 3">Week 3</option>
+            <option value="Week 4">Week 4</option>
+            
+        </select>
+        </div>
+        <section class="donation-reports">
+            <ul>
+            </ul>
+        </section>
+        <h2>Other reports:</h2>
+        <div class="other-buttons">
+            <input type="radio" id="collection-drive" name="choice">
+            <label for="collection-drive">List collection drives</label>
+            <br>
+            <input type="radio" id="confirmed-payments" name="choice">
+            <label for="">list confirmed payments</label>
+        </div>
+        <section class="donation-reports">
+            <ul>
+            </ul>
+        </section>
+        <h2 class="aggerated-bloods">aggerated blood amounts:</h2>
+        <ul>
+            <li>
+                A:
+            </li>
+            <li>
+                A+:
+            </li>
+            <li>
+                B:
+            </li>
+            <li>
+                B+:
+            </li>
+            <li>
+                AB:
+            </li>
+            <li>
+                AB+:
+            </li>
+            <li>
+                O:
+            </li>
+            <li>
+                O+: 
+            </li>
+        </ul>
+    </main>
+    <footer>
+        <!-- Footer content -->
+    </footer>
+</body>
+</html>
