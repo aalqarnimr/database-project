@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation - Sign In</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .profile-info {
+            max-width: 400px;
+            width: 80%;
+            padding: 20px;
+            background-color: #FFF;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-info label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .profile-info p {
+            margin-top: 0;
+        }
+
+        .profile-info p:last-child {
+            margin-bottom: 0;
+        }
+        .profile-info {
+            max-width: 400px;
+            width: 80%;
+            padding: 20px;
+            background-color: #FFF;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-info label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .profile-info input {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: calc(100% - 16px); /* Adjust width as needed */
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .profile-info button {
+            padding: 8px 20px;
+            background-color: #C70039;
+            color: #FFF5E0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Sign In to Blood Donation</h1>
+        <nav>
+            <a href="main-page.html">Home</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="profile-info">
+            <h1>Profile Information</h1>
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" value="John Doe">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="johndoe@example.com">
+
+            <label for="medical-history">Medical History:</label>
+            <textarea id="medical-history" rows="4">No significant medical history</textarea>
+
+            <label for="weight">Weight:</label>
+            <input type="text" id="weight" value="70 kg">
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" value="123 Main Street, City">
+
+            <button onclick="saveChanges()">Save Changes</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Contact us for more information.</p>
+    </footer>
+    <script>
+        function saveChanges() {
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const medicalHistory = document.getElementById('medical-history').value;
+            const weight = document.getElementById('weight').value;
+            const address = document.getElementById('address').value;
+            console.log('Updated Full Name:', fullname);
+            console.log('Updated Email:', email);
+            console.log('Updated Medical History:', medicalHistory);
+            console.log('Updated Weight:', weight);
+            console.log('Updated Address:', address);
+        }
+    </script>
+</body>
+
+
+</html>
