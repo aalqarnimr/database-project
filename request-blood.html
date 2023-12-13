@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Blood</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Add your styles for the request blood page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF5E0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+        .disclaimer {
+            background-color: #FFFFFF;
+            border: 1px solid #000000;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .checkbox-container {
+            width: 100%;
+            text-align: left;
+        }
+
+        .checkbox-label {
+            margin-left: 10px;
+        }
+
+        .continue-button {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #FF6969;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Blood Donation website</h1>
+        <nav>
+          <a href="main-page.html">Home</a>
+          <a href="profile.html">Update Profile</a>
+          <a href="Request-Blood.html">Request Blood</a>
+          <a href="index.html">logout</a>
+        </nav>
+      </header>
+    <div class="container">
+        <h1 style="text-align: center;">Request Blood</h1>
+        <div class="disclaimer">
+            <h2>Disclaimer and Conditions</h2>
+            <p>
+                By requesting blood, you acknowledge that:
+            </p>
+            <ul>
+                <li>You genuinely require the blood for medical reasons.</li>
+                <li>You have not intentionally hidden any medical conditions or diseases.</li>
+                <li>You understand the risks involved and are willing to adhere to medical guidance post-transfusion.</li>
+            </ul>
+        </div>
+        <div style="padding: 10px;">
+            <label for="blood-amount">blood amount requested?</label>
+            <input type="number" name="blood-amount" id="blood-amount" required>
+        </div>
+        <div class="checkbox-container">
+            <input type="checkbox" id="agreeCheckbox">
+            <label for="agreeCheckbox" class="checkbox-label">I agree to the terms and conditions</label>
+            <br>
+            <input type="checkbox" id="chargeCkb">
+            <label for="chargeCkb" class="checkbox-label">I will pay for blood (preferred, faster)</label>
+        </div>
+
+        <button class="continue-button" onclick="continueToRequest()">Continue</button>
+    </div>
+
+    <script>
+        function continueToRequest() {
+            const checkbox = document.getElementById('agreeCheckbox');
+            const bloodAmount = document.getElementById('blood-amount').value;
+            if (!bloodAmount || !checkbox.checked) {
+                alert('Please fill in the blood amount and agree to the terms and conditions.');
+            } else {
+                window.location.href = 'request_form.html';
+            }
+        }
+    </script>
+</body>
+</html>

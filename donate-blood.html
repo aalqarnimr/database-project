@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Blood</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Add your styles for the request blood page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF5E0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+        .disclaimer {
+            background-color: #FFFFFF;
+            border: 1px solid #000000;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .checkbox-container {
+            width: 100%;
+            text-align: left;
+        }
+
+        .checkbox-label {
+            margin-left: 10px;
+        }
+
+        .continue-button {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #FF6969;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Blood Donation website</h1>
+        <nav>
+          <a href="main-page.html">Home</a>
+          <a href="profile.html">Update Profile</a>
+          <a href="Request-Blood.html">Request Blood</a>
+          <a href="index.html">logout</a>
+        </nav>
+      </header>
+    <div class="container">
+        <h1 style="text-align: center;">Request Blood</h1>
+        <div class="disclaimer">
+            <h2>Disclaimer and Conditions for Blood Donation</h2>
+            <p>
+                By agreeing to donate blood, you acknowledge that:
+            </p>
+            <ul>
+                <li>You have consumed a meal within the last 12 hours.</li>
+                <li>You have not donated blood in the last 4 months.</li>
+                <li>Your decision to donate blood is voluntary and without any undue pressure.</li>
+                <li>You understand that the hospital or facility collecting the blood is not responsible for any side effects post-donation.</li>
+                <li>You will follow any post-donation guidelines provided by medical professionals.</li>
+                <li>You have disclosed any relevant medical conditions or medications affecting your ability to donate blood.</li>
+            </ul>
+        </div>
+        <div class="checkbox-container">
+            <input type="checkbox" id="agreeCheckbox">
+            <label for="agreeCheckbox" class="checkbox-label">I agree to the terms and conditions</label>
+        <br>
+        <button class="continue-button" onclick="continueToRequest()">Continue</button>
+    </div>
+
+    <script>
+        function continueToRequest() {
+            const checkbox = document.getElementById('agreeCheckbox');
+            if (checkbox.checked) {
+                window.location.href = 'request_form.html';
+            } else {
+                alert('Please agree to the terms and conditions.');
+            }
+        }
+    </script>
+</body>
+</html>
