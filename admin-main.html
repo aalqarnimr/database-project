@@ -1,223 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>admin</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #FFF5E0;
-        }
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #fff5e0;
+      }
 
-        header {
-            background-color: #141E46;
-            color: #FFF5E0;
-            padding: 20px 0;
-            text-align: center;
-            width: 100%;
-            margin-bottom: 60px;
-        }
+      header {
+        background-color: #141e46;
+        color: #fff5e0;
+        padding: 20px 0;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 60px;
+      }
 
-        header h1 {
-            margin: 0;
-        }
+      header h1 {
+        margin: 0;
+      }
 
-        nav {
-            background-color: #FF6969;
-            padding: 10px;
-        }
+      nav {
+        background-color: #ff6969;
+        padding: 10px;
+      }
 
-        nav a {
-            text-decoration: none;
-            color: #FFF5E0;
-            padding: 10px 20px;
-            margin: 0 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
+      nav a {
+        text-decoration: none;
+        color: #fff5e0;
+        padding: 10px 20px;
+        margin: 0 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+      }
 
-        nav a:hover {
-            background-color: #FFF5E0;
-            color: #FF6969;
-        }
+      nav a:hover {
+        background-color: #fff5e0;
+        color: #ff6969;
+      }
 
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            margin: 50px;
-        }
+      main {
+        margin: 50px;
+      }
 
-        /* Your other styles here */
+      /* Your other styles here */
 
-        /* Additional styles for buttons */
-        .button-container {
-            display: flex;
-            justify-content: space-around;
-            width: 60%;
-            margin-top: 20px;
-        }
+      /* Additional styles for buttons */
+      .button-container {
+        display: flex;
+        justify-content: space-around;
+        width: 60%;
+        margin-top: 20px;
+      }
 
-        .welcome-button {
-            text-decoration: none;
-            color: #FFF5E0;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
+      .welcome-button {
+        text-decoration: none;
+        color: #fff5e0;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+      }
 
-        .welcome-button:nth-child(1) {
-            background-color: #FF6969;
-        }
+      .welcome-button:nth-child(1) {
+        background-color: #ff6969;
+      }
 
-        .welcome-button:nth-child(2) {
-            background-color: #C70039;
-        }
+      .welcome-button:nth-child(2) {
+        background-color: #c70039;
+      }
 
-        .welcome-button:hover {
-            filter: brightness(1.2);
-        }
+      .welcome-button:hover {
+        filter: brightness(1.2);
+      }
 
-        /* Additional styles for signin/signup buttons */
-        .signin-button,
-        .signup-button {
-            text-decoration: none;
-            color: #FFF5E0;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
+      /* Additional styles for signin/signup buttons */
+      .signin-button,
+      .signup-button {
+        text-decoration: none;
+        color: #fff5e0;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+      }
 
-        .signin-button {
-            background-color: #FF6969;
-        }
+      .signin-button {
+        background-color: #ff6969;
+      }
 
-        .signup-button {
-            background-color: #C70039;
-        }
+      .signup-button {
+        background-color: #c70039;
+      }
 
-        .signin-button:hover,
-        .signup-button:hover {
-            filter: brightness(1.2);
-        }
-        .user-history,.incoming-donations,.donation-reports{
-            width: 100wh;
-            background-color: white;
-            height: 100px;
-            border-radius: 5px;
-            border: 1px solid black;
+      .signin-button:hover,
+      .signup-button:hover {
+        filter: brightness(1.2);
+      }
+      .users,
+      .recepient-requests,
+      .donor-requests,
+      .donation-reports {
+        width: 100wh;
+        background-color: white;
+        min-height: 100px;
+        border-radius: 5px;
+        border: 1px solid black;
+      }
+      .reports-types {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+      }
+      button {
+        padding: 5px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid black;
+        transition: background-color 0.5s linear;
+      }
+      button:hover {
+        background-color: rgb(167, 167, 167);
+      }
+      .users-container {
+        margin: 10px;
 
-        }
-        .user-history li{
-            list-style: none;
-        }
-        .reports-types {
-            display: flex;
-            flex-direction: row;
-            flex: 1;
-        }
-        
+        border: 1px solid black;
+        padding-bottom: 20px;
+      }
+      .users-container > * {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid black;
+        margin-bottom: 5px;
+        flex-basis: 1;
+        padding: 5px;
+      }
+      .users-container > * > * {
+        flex: 1;
+        text-align: center;
+      }
+      .d-r_header {
+        background-color: darkgray;
+        padding: 10px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>Sign Up for Blood Donation</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="profile.html">Reports</a>
-        </nav>
+      <h1>Sign Up for Blood Donation</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="profile.html">Reports</a>
+      </nav>
     </header>
     <main>
-        <h1>Donors-recepients:</h1>
-        <section class="incoming-donations">
+      <h1>Donors-recepients:</h1>
+      <button class="add-user-btn"><a href="profile.html">Add Donor/Recepient</a></button>
+      <section class="users">
+        <div class="users-container usersTable">
+          <div class="d-r_header">
+            <i>User Name</i>
+            <i>User ID</i>
+            <i>User Type</i>
+            <i>Blood Type</i>
+            <i>Actions</i>
+          </div>
+          <div class="1115797392">
+            <i>khaled ali</i>
+            <i>11189402</i>
+            <i>donor</i>
+            <i>O+</i>
+            <i>
+              <button>
+                <img
+                  src="trash-xmark-svgrepo-com.svg"
+                  alt="remove"
+                  height="15"
+                />
+              </button>
+              <button>
+                <img
+                  src="pen-square-svgrepo-com.svg"
+                  alt="modify"
+                  height="15"
+                />
+              </button>
+            </i>
+          </div>
+          <div class="1115797392-dr">
+            <i>khaled ali</i>
+            <i>11189402</i>
+            <i>donor</i>
+            <i>O+</i>
+            <i>
+              <button>
+                <img
+                  src="trash-xmark-svgrepo-com.svg"
+                  alt="remove"
+                  height="15"
+                />
+              </button>
+              <button>
+                <img
+                  src="pen-square-svgrepo-com.svg"
+                  alt="modify"
+                  height="15"
+                />
+              </button>
+            </i>
+          </div>
+        </div>
+      </section>
+      <h1>Recepient Requests:</h1>
+      <section class="recepient-requests">
+        <div class="users-container resTable">
+          <div class="d-r_header">
+            <i>Recepinet Name</i>
+            <i>User ID</i>
+            <i>Blood Type</i>
+            <i>Requested Amount</i>
+            <i>Charge</i>
+            <i>Actions</i>
+          </div>
+          <div class="1115797392-dr">
+            <i>khaled ali</i>
+            <i>11189402</i>
+            <i>A+</i>
+            <i>10</i>
+            <i>Charged</i>
+            <i>
+              <button>
+                <img
+                  src="trash-xmark-svgrepo-com.svg"
+                  alt="remove"
+                  height="15"
+                />
+              </button>
+              <button>
+                <img
+                  src="check-mark-svgrepo-com.svg"
+                  alt="modify"
+                  height="15"
+                />
+              </button>
+            </i>
+          </div>
+        </div>
+      </section>
+      <h1>Donor Requests:</h1>
+      <section class="donor-requests">
+        <div class="users-container donorTable">
+          <div class="d-r_header">
+            <i>Donor Name</i>
+            <i>User ID</i>
+            <i>Blood Type</i>
+            <i>Actions</i>
+          </div>
+          <div class="1115797392-dr">
+            <i>khaled ali</i>
+            <i>11189402</i>
+            <i>A+</i>
 
-        </section>
-        <h1>Requests:</h1>
-        <section class="user-history">
-            <ul>
-                <li>
-
-                </li>
-            </ul>
-        </section>
-        <h1>Reports:</h1>
-        <h2>Donations received:</h2>
-        <div class="reports-types">
-
-            <label for="month-select">Select Month:</label>
-        <select id="month-select">
-            <option value="All" selected>All</option>
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="April">April</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>        </select>
-
-        <label for="week-select">Select Week:</label>
-        <select id="week-select">
-            <option value="all" selected>All</option>
-            <option value="Week 1">Week 1</option>
-            <option value="Week 2">Week 2</option>
-            <option value="Week 3">Week 3</option>
-            <option value="Week 4">Week 4</option>
-            
+            <i>
+              <button>
+                <img
+                  src="trash-xmark-svgrepo-com.svg"
+                  alt="remove"
+                  height="15"
+                />
+              </button>
+              <button>
+                <img
+                  src="check-mark-svgrepo-com.svg"
+                  alt="modify"
+                  height="15"
+                />
+              </button>
+            </i>
+          </div>
+        </div>
+      </section>
+      <h1>Reports:</h1>
+      <h2>Donations received:</h2>
+      <div class="reports-types">
+        <label for="month-select">Select Period:</label>
+        <select id="period-select">
+          <option value="All" selected>All</option>
+          <option value="Last-Week">Last Week</option>
+          <option value="Last-month">Last Month</option>
         </select>
+      </div>
+      <section class="donation-reports">
+        <div class="users-container donorReceievedTable">
+          <div class="d-r_header">
+            <i>Donor Name</i>
+            <i>User ID</i>
+            <i>Blood Type</i>
+            <i>Date</i>
+          </div>
+          <div class="1115797392-dr">
+            <i>tamer morad</i>
+            <i>11189402</i>
+            <i>B+</i>
+
+            <i> 04/01/2023 </i>
+          </div>
         </div>
-        <section class="donation-reports">
-            <ul>
-            </ul>
-        </section>
-        <h2>Other reports:</h2>
-        <div class="other-buttons">
-            <input type="radio" id="collection-drive" name="choice">
-            <label for="collection-drive">List collection drives</label>
-            <br>
-            <input type="radio" id="confirmed-payments" name="choice">
-            <label for="">list confirmed payments</label>
+      </section>
+      <h2>Other reports:</h2>
+      <div class="other-buttons">
+        <input
+          type="radio"
+          id="collection-drive"
+          name="choice"
+          onclick="showCollectionDrives()"
+          checked
+        />
+        <label for="collection-drive">List collection drives</label>
+        <br />
+        <input
+          type="radio"
+          id="confirmed-payments"
+          name="choice"
+          onclick="showConfirmedPayments()"
+        />
+        <label for="">list confirmed payments</label>
+      </div>
+      <section class="donation-reports">
+        <div class="users-container otherReportsTable">
+          <div class="d-r_header">
+            <i>Drive ID</i>
+            <i>Total blood Recieved</i>
+            <i>Start Date</i>
+            <i>End Date</i>
+          </div>
+          <div class="1223">
+            <i>1223</i>
+            <i>27</i>
+            <i> 12/01/2023 </i>
+            <i> 12/31/2023 </i>
+          </div>
         </div>
-        <section class="donation-reports">
-            <ul>
-            </ul>
-        </section>
-        <h2 class="aggerated-bloods">aggerated blood amounts:</h2>
-        <ul>
-            <li>
-                A:
-            </li>
-            <li>
-                A+:
-            </li>
-            <li>
-                B:
-            </li>
-            <li>
-                B+:
-            </li>
-            <li>
-                AB:
-            </li>
-            <li>
-                AB+:
-            </li>
-            <li>
-                O:
-            </li>
-            <li>
-                O+: 
-            </li>
-        </ul>
+      </section>
+      <h2 class="aggerated-bloods">aggerated blood amounts:</h2>
+      <ul>
+        <li>A:</li>
+        <li>A+:</li>
+        <li>B:</li>
+        <li>B+:</li>
+        <li>AB:</li>
+        <li>AB+:</li>
+        <li>O:</li>
+        <li>O+:</li>
+      </ul>
     </main>
-    <footer>
-        <!-- Footer content -->
-    </footer>
-</body>
+    <footer></footer>
+    <script src="admin_main.js"></script>
+  </body>
 </html>
