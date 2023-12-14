@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>adminedProfile</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         .profile-info {
             max-width: 400px;
@@ -28,6 +30,7 @@
         .profile-info p:last-child {
             margin-bottom: 0;
         }
+
         .profile-info {
             max-width: 400px;
             width: 80%;
@@ -46,7 +49,8 @@
         .profile-info input {
             margin-bottom: 10px;
             padding: 8px;
-            width: calc(100% - 16px); /* Adjust width as needed */
+            width: calc(100% - 16px);
+            /* Adjust width as needed */
             border-radius: 4px;
             border: 1px solid #ccc;
         }
@@ -76,34 +80,37 @@
         <div class="profile-info">
             <h1>Profile Information</h1>
             <label for="firstname">First Name:</label>
-            <input type="text" id="firstname" value="John">
-        
+            <input type="text" id="firstname" value="">
+
             <label for="lastname">Last Name:</label>
-            <input type="text" id="lastname" value="Doe">
-        
+            <input type="text" id="lastname" value="">
+
+            <label for="ID">ID:</label>
+            <input type="ID" id="ID" value="">
+
             <label for="email">Email:</label>
-            <input type="email" id="email" value="johndoe@example.com" >
-        
+            <input type="email" id="email" value="">
+
             <label for="contact-number">Contact Number:</label>
-            <input type="text" id="contact-number" value="1234567890" >
-        
+            <input type="text" id="contact-number" value="">
+
             <label for="blood-type">Blood Type:</label>
-            <input type="text" id="blood-type" value="A+" >
-        
+            <input type="text" id="blood-type" value="">
+
             <label for="birthday">Birthday:</label>
-            <input type="date" id="birthday" value="2000-01-01">
-        
+            <input type="date" id="birthday" value="">
+
             <label for="medical-history">Medical History:</label>
             <textarea id="medical-history" rows="4">No significant medical history</textarea>
-        
+
             <label for="weight">Weight:</label>
-            <input type="text" id="weight" value="70 kg">
-        
+            <input type="text" id="weight" value="">
+
             <label for="address">Address:</label>
-            <input type="text" id="address" value="123 Main Street, City">
+            <input type="text" id="address" value="">
             <label for="password">password:</label>
             <input type="password" id="password" value="">
-        
+
             <button onclick="saveChanges()">Save Changes</button>
         </div>
     </main>
@@ -112,11 +119,57 @@
         <p>Contact us for more information.</p>
     </footer>
     <script>
-        const medicalHistory = document.getElementById("medical-history").value;
-        const weight = document.getElementById("weight").value;
-        const address = document.getElementById("address").value;
+        const supabaseUrl = "https://vrvtmqckywwkrakjciyq.supabase.co";
+        const supabaseKey =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydnRtcWNreXd3a3Jha2pjaXlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzMzY3NTQsImV4cCI6MjAxNzkxMjc1NH0.TC_jAS54Muu2Nz0tjVrryX1tyqrcA05OHTu5KaUEWck";
+        var database = supabase.createClient(supabaseUrl, supabaseKey);
         function saveChanges() {
-            
+            const Fname = document.getElementById("firstname").value;
+            const Lname = document.getElementById("lastname").value;
+            const ID = document.getElementById("ID").value;
+            const email = document.getElementById("email").value;
+            const contact_number = document.getElementById("contact-number").value;
+            const Blood_type = document.getElementById("blood-type").value;
+            const birthday = document.getElementById("birthday").value;
+            const medicalHistory = document.getElementById("medical-history").value;
+            const weight = document.getElementById("weight").value;
+            const Address = document.getElementById("address").value;
+            const Password = document.getElementById("password").value;
+
+            database
+                .from('PERSON')
+                .insert([
+                    {
+                        ID,
+                        Fname,
+                        Lname,
+                        email,
+                        contact_number,
+                        Blood_type,
+                        Address,
+                        Password,
+                    },
+                ])
+                .then((response) => {
+                    console.log('Data inserted successfully:', response);
+                })
+                .catch((error) => {
+                    console.error('Error inserting data:', error);
+                });
+        }
+        async function getPersonData() {
+            console.log(database);
+            try {
+                var { data, error } = await database.from('PERSON').select("*");
+
+                if (error) {
+                    throw error;
+                }
+
+                console.log('Data from table:', data);
+            } catch (error) {
+                console.error('Error fetching data:', error.message);
+            }
         }
     </script>
 </body>

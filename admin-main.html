@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>admin</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin_main.js"></script>
     <style>
       body {
         margin: 0;
@@ -162,7 +164,7 @@
     </header>
     <main>
       <h1>Donors-recepients:</h1>
-      <button class="add-user-btn"><a href="profile.html">Add Donor/Recepient</a></button>
+      <button class="add-user-btn"><a href="adminedProfile.html">Add Donor/Recepient</a></button>
       <section class="users">
         <div class="users-container usersTable">
           <div class="d-r_header">
@@ -187,11 +189,11 @@
               </button>
               <button>
                 <a href="adminedProfile.html">
-                    <img
-                      src="pen-square-svgrepo-com.svg"
-                      alt="modify"
-                      height="15"
-                    />
+                  <img
+                    src="pen-square-svgrepo-com.svg"
+                    alt="modify"
+                    height="15"
+                  />
                 </a>
               </button>
             </i>
@@ -364,6 +366,5 @@
       </ul>
     </main>
     <footer></footer>
-    <script src="admin_main.js"></script>
   </body>
 </html>
