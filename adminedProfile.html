@@ -31,15 +31,6 @@
             margin-bottom: 0;
         }
 
-        .profile-info {
-            max-width: 400px;
-            width: 80%;
-            padding: 20px;
-            background-color: #FFF;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
         .profile-info label {
             display: block;
             margin-bottom: 5px;
@@ -53,6 +44,9 @@
             /* Adjust width as needed */
             border-radius: 4px;
             border: 1px solid #ccc;
+        }
+        .profile-info input[type="radio"]{
+            width: auto;
         }
 
         .profile-info button {
@@ -79,6 +73,13 @@
     <main>
         <div class="profile-info">
             <h1>Profile Information</h1>
+                <div style="margin-bottom: 20px; border-top: 20px;">
+                    <label for="donor" style="display: inline;">Donor</label>
+                    <input type="radio" name="userType" value="donor" checked>
+                    <label for="recipient" style="display: inline;">Recepient</label>
+                    <input type="radio" name="userType" value="recipient">
+                </div>
+
             <label for="firstname">First Name:</label>
             <input type="text" id="firstname" value="">
 
@@ -111,7 +112,7 @@
             <label for="password">password:</label>
             <input type="password" id="password" value="">
 
-            <button onclick="saveChanges()">Save Changes</button>
+            <button onclick="saveChanges()">Save User</button>
         </div>
     </main>
 

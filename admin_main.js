@@ -1,6 +1,6 @@
 otherReportsButtons = document.querySelector(".other-buttons");
 otherReportsTable = document.querySelector(".otherReportsTable");
-//---------------------------database functions-------------------------------------------------------
+//-------------------------------database functions-------------------------------------------------------
 const supabaseUrl = "https://vrvtmqckywwkrakjciyq.supabase.co";
 const supabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydnRtcWNreXd3a3Jha2pjaXlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzMzY3NTQsImV4cCI6MjAxNzkxMjc1NH0.TC_jAS54Muu2Nz0tjVrryX1tyqrcA05OHTu5KaUEWck";
@@ -9,19 +9,143 @@ var database = supabase.createClient(supabaseUrl, supabaseKey);
 localStorage.setItem("database", database);
 async function getPersonData() {
     try {
-      var { data, error } = await database.from('PERSON').select("*");
-        
+      var { data, error } = await database.rpc('get_persons_with_user_type');
+    
       if (error) {
         throw error;
       }
-  
+      showUsers(data);
       console.log('Data from table:', data);
     } catch (error) {
       console.error('Error fetching data:', error.message);
     }
   }
+async function getPersonData() {
+    try {
+      var { data, error } = await database.rpc('get_persons_with_user_type');
+    
+      if (error) {
+        throw error;
+      }
+      showUsers(data);
+      console.log('Data from table:', data);
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
+    }
+  }
+async function getRecepientRequests() {
+    try {
+      var { data, error } = await database.rpc('get_person_blood_requests');
+    
+      if (error) {
+        throw error;
+      }
+      showRecepinetRequests(data);
+      console.log('Data from table:', data);
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
+    }
+  }
+//---------------------------------database functions-------------------------------------------------------
 
-//---------------------------database functions-------------------------------------------------------
+function showUsers(data){
+    const usersTable = document.querySelector(".usersTable");
+    console.log(data);
+    data.forEach(element => {
+        const userTuple = document.createElement("div");
+        userTuple.className = element.id;
+        userTuple.innerHTML = `<i>${element.fname}</i>
+        <i>${element.id}</i>
+        <i>${element.user_type}</i>
+        <i>${element.blood_type}</i>
+        <i>
+          <button class=${element.id}>
+            <img
+              src="trash-xmark-svgrepo-com.svg"
+              alt="remove"
+              height="15"
+            />
+          </button>
+          <button>
+            <a href="adminedProfile.html?userid=${element.id}">
+              <img
+                src="pen-square-svgrepo-com.svg"
+                alt="modify"
+                height="15"
+              />
+            </a>
+          </button>
+        </i>`;
+        usersTable.append(userTuple);
+    }
+    );
+}
+function showRecepinetRequests(data){
+    const resReqTable = document.querySelector(".resTable");
+    console.log(data);
+    data.forEach(element => {
+        const resReqTuple = document.createElement("div");
+        resReqTuple.className = element.id;
+        resReqTuple.innerHTML = `<i>${element.fname}</i>
+        <i>${element.id}</i>
+        <i>${element.blood_type}</i>
+        <i>${element.amount}</i>
+        <i>${element.charge}</i>
+        <i>
+          <button class=${element.id}>
+            <img
+                src="trash-xmark-svgrepo-com.svg"
+                alt="remove"
+                height="15"
+            />
+          </button>
+          <button>
+            <a href="adminedProfile.html?userid=${element.id}">
+              <img
+                src="check-mark-svgrepo-com.svg"
+                alt="accept"
+                height="15"
+              />
+            </a>
+          </button>
+        </i>`;
+        resReqTable.append(resReqTuple);
+    }
+    );
+}
+function showDonorRequests(data){
+    resReqTable = document.querySelector(".resTable");
+    console.log(data);
+    data.forEach(element => {
+        const resReqTuple = document.createElement("div");
+        resReqTuple.className = element.id;
+        resReqTuple.innerHTML = `<i>${element.fname}</i>
+        <i>${element.id}</i>
+        <i>${element.blood_type}</i>
+        <i>
+          <button class=${element.id}>
+            <img
+                src="trash-xmark-svgrepo-com.svg"
+                alt="remove"
+                height="15"
+            />
+          </button>
+          <button>
+            <a href="adminedProfile.html?userid=${element.id}">
+              <img
+                src="check-mark-svgrepo-com.svg"
+                alt="accept"
+                height="15"
+              />
+            </a>
+          </button>
+        </i>`;
+        resReqTable.append(resReqTuple);
+    }
+    );
+}
+getPersonData();
+// getRecepientRequests();
 
 
 function showCollectionDrives() {

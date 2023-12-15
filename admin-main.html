@@ -164,7 +164,7 @@
     </header>
     <main>
       <h1>Donors-recepients:</h1>
-      <button class="add-user-btn"><a href="adminedProfile.html">Add Donor/Recepient</a></button>
+      <a href="adminedProfile.html"><button class="add-user-btn">Add Donor/Recepient</button></a>
       <section class="users">
         <div class="users-container usersTable">
           <div class="d-r_header">
@@ -174,35 +174,24 @@
             <i>Blood Type</i>
             <i>Actions</i>
           </div>
-          <div class="1115797392">
-            <i>khaled ali</i>
-            <i>11189402</i>
-            <i>donor</i>
-            <i>O+</i>
-            <i>
-              <button>
-                <img
-                  src="trash-xmark-svgrepo-com.svg"
-                  alt="remove"
-                  height="15"
-                />
-              </button>
-              <button>
-                <a href="adminedProfile.html">
-                  <img
-                    src="pen-square-svgrepo-com.svg"
-                    alt="modify"
-                    height="15"
-                  />
-                </a>
-              </button>
-            </i>
+          </div>
+        </div>
+      </section>
+      <h1>Update Profile Requests:</h1>
+      <section class="recepient-requests">
+        <div class="users-container resTable">
+          <div class="d-r_header">
+            <i>User ID</i>
+            <i>Added Disease</i>
+            <i>New Weight</i>
+            <i>New Address</i>
+            <i>Actions</i>
           </div>
           <div class="1115797392-dr">
-            <i>khaled ali</i>
             <i>11189402</i>
-            <i>donor</i>
-            <i>O+</i>
+            <i></i>
+            <i>10</i>
+            <i>Charged</i>
             <i>
               <button>
                 <img
@@ -213,11 +202,20 @@
               </button>
               <button>
                 <img
-                  src="pen-square-svgrepo-com.svg"
-                  alt="modify"
+                  src="check-mark-svgrepo-com.svg"
+                  alt="accept"
                   height="15"
                 />
               </button>
+              <a href="profile.html">
+                  <button>
+                    <img
+                      src="eye-svgrepo-com.svg"
+                      alt="showInfo"
+                      height="15"
+                    />
+                  </button>
+              </a>
             </i>
           </div>
         </div>
@@ -250,7 +248,7 @@
               <button>
                 <img
                   src="check-mark-svgrepo-com.svg"
-                  alt="modify"
+                  alt="accept"
                   height="15"
                 />
               </button>
@@ -295,7 +293,7 @@
       <h2>Donations received:</h2>
       <div class="reports-types">
         <label for="month-select">Select Period:</label>
-        <select id="period-select">
+        <select id="period-select" onclick="getPersonData()">
           <option value="All" selected>All</option>
           <option value="Last-Week">Last Week</option>
           <option value="Last-month">Last Month</option>
