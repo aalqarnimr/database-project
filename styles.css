@@ -71,6 +71,7 @@ form {
 
 input[type="text"],
 input[type="email"],
+input[type="number"],
 input[type="password"],
 input[type="submit"] {
     display: block;
@@ -147,4 +148,8 @@ p {
 .signin-button:hover,
 .signup-button:hover {
     filter: brightness(1.2);
+}
+
+.alert-text{
+    color: #69001e;
 }
