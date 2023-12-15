@@ -21,12 +21,12 @@
     <main>
         <form id="signin-form">
             <label for="id">ID:</label>
-            <input type="text" id="id" name="id" required><br><br>
+            <input type="text" id="id" name="id" minlength="10" maxlength="10" required><br><br>
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br><br>
+            <input type="password" id="password" name="password" minlength="8" required><br><br>
 
-            <button type="button" class="signin-button" onclick="getUser()">Sign In</button>
+            <button type="submit" class="signin-button">Sign In</button>
             <p class="alert-text" style="display: none;">Password or Email is incorrect!</p>
         </form>
     </main>

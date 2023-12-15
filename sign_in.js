@@ -3,22 +3,6 @@ const supabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydnRtcWNreXd3a3Jha2pjaXlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzMzY3NTQsImV4cCI6MjAxNzkxMjc1NH0.TC_jAS54Muu2Nz0tjVrryX1tyqrcA05OHTu5KaUEWck";
 
 var database = supabase.createClient(supabaseUrl, supabaseKey);
-
-document.getElementById("signin-form").addEventListener("submit", function (e) {
-  e.preventDefault();
-  const userEmail = document.getElementById("email").value;
-  const userPass = document.getElementById("password").value;
-  if (userEmail === "admin@admin" && userPass === "admin") {
-    localStorage.setItem("userEmail", userEmail);
-    localStorage.setItem("userPass", userPass);
-    window.location.href = "admin-main.html";
-  } else {
-    localStorage.setItem("userEmail", userEmail);
-    localStorage.setItem("userPass", userPass);
-    window.location.href = "main-page.html";
-  }
-});
-
 userIdData = document.querySelector("#id");
 userPasswordData = document.querySelector("#password");
 alertText = document.querySelector(".alert-text");
@@ -64,3 +48,7 @@ function redirectUser(data){
     window.location.href = "main-page-donor.html";
   }
 }
+document.getElementById('signin-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  getUser();
+})
