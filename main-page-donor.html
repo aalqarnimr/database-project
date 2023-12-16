@@ -128,51 +128,44 @@
             <i>blood amount</i>
             <i>Date</i>
           </div>
-          <div class="1223">
-            <i>2</i>
-            <i> 12/01/2023 </i>
-          </div>
         </div>
       </section>
     </main>
     <footer>&copy; 2023 Blood Donation System | All rights reserved.</footer>
     <script>
+      userId = localStorage.getItem("userID");
       const supabaseUrl = "https://vrvtmqckywwkrakjciyq.supabase.co";
       const supabaseKey =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydnRtcWNreXd3a3Jha2pjaXlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzMzY3NTQsImV4cCI6MjAxNzkxMjc1NH0.TC_jAS54Muu2Nz0tjVrryX1tyqrcA05OHTu5KaUEWck";
       var database = supabase.createClient(supabaseUrl, supabaseKey);
+      async function getPersonData() {
+        try {
+          var { data, error } = await database.rpc(
+            "get_myhistory_donor",{
+              entered_id:userId
+            }
+          );
+          showHistory(data);
+          if (error) {
+            throw error;
+          }
+          console.log("Data from table:", data);
+        } catch (error) {
+          console.error("Error fetching data:", error.message);
+        }
+      }
       function showHistory(data) {
-        const resReqTable = document.querySelector(".resTable");
+        const resReqTable = document.querySelector(".otherReportsTable");
         console.log(data);
         data.forEach((element) => {
           const resReqTuple = document.createElement("div");
-          resReqTuple.className = `d${element.id}`;
-          resReqTuple.innerHTML = `<i>${element.fname}</i>
-        <i>${element.id}</i>
-        <i>${element.blood_type}</i>
-        <i>${element.amount}</i>
-        <i>${element.charge}</i>
-        <i>
-          <button class=b${element.id}>
-            <img
-                src="trash-xmark-svgrepo-com.svg"
-                alt="remove"
-                height="15"
-            />
-          </button>
-          <button>
-            <a href="adminedProfile.html?userid=${element.id}">
-              <img
-                src="check-mark-svgrepo-com.svg"
-                alt="accept"
-                height="15"
-              />
-            </a>
-          </button>
-        </i>`;
+          resReqTuple.className = `hello`;
+          resReqTuple.innerHTML = `<i>1</i>
+        <i>${element.donation_date}</i>`;
           resReqTable.append(resReqTuple);
         });
       }
+      getPersonData();
     </script>
   </body>
 </html>

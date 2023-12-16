@@ -217,10 +217,10 @@
       <h2>Donations received:</h2>
       <div class="reports-types">
         <label for="month-select">Select Period:</label>
-        <select id="period-select" onclick="getPersonData()">
+        <select id="period-select" onchange="handlePeriodChange(this.value)">
           <option value="All" selected>All</option>
-          <option value="Last-Week">Last Week</option>
-          <option value="Last-month">Last Month</option>
+          <option value="Last-Week" >Last Week</option>
+          <option value="Last-month" >Last Month</option>
         </select>
       </div>
       <section class="donation-reports">
@@ -246,7 +246,7 @@
           type="radio"
           id="collection-drive"
           name="choice"
-          onclick="showCollectionDrives()"
+          onclick="getCollectionDrives()"
           checked
         />
         <label for="collection-drive">List collection drives</label>
@@ -255,7 +255,7 @@
           type="radio"
           id="confirmed-payments"
           name="choice"
-          onclick="showConfirmedPayments()"
+          onclick="getConfirmedPayments()"
         />
         <label for="">list confirmed payments</label>
       </div>
@@ -275,8 +275,8 @@
           </div>
         </div>
       </section>
-      <h2 class="aggerated-bloods">aggerated blood amounts:</h2>
-      <ul>
+      <h2 class="aggerated-bloods">aggregated blood bags amounts:</h2>
+      <ul class="aggregated">
         <li>A:</li>
         <li>A+:</li>
         <li>B:</li>

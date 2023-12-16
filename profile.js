@@ -101,6 +101,6 @@ async function submitRequest() {
       date: date,
     })
     .then((response) => {
-      // window.location.href= "submission.html";
+      window.location.href= "submission.html";
     });
 }

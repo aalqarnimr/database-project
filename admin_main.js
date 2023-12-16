@@ -32,6 +32,97 @@ async function getProfileData() {
     console.error("Error fetching data:", error.message);
   }
 }
+async function getDonationReceived() {
+  try {
+    var { data, error } = await database.rpc(
+      "get_admin_donations_recieved"
+    );
+    showDonationsReceived(data);
+
+    if (error) {
+      throw error;
+    }
+    console.log("Data from table profile:", data);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+async function getDonationReceivedMonth() {
+  try {
+    var { data, error } = await database.rpc(
+      "get_admin_donations_recieved_last_month"
+    );
+    showDonationsReceived(data);
+
+    if (error) {
+      throw error;
+    }
+    console.log("Data from table profile:", data);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+async function getDonationReceivedWeek() {
+  console.log("hereee")
+  try {
+    var { data, error } = await database.rpc(
+      "get_admin_donations_recieved_last_week"
+    );
+    showDonationsReceived(data);
+
+    if (error) {
+      throw error;
+    }
+    console.log("Data from table profile:", data);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+async function getCollectionDrives() {
+  try {
+    var { data, error } = await database.rpc(
+      "get_admin_other_reports_collection_drives"
+    );
+    showCollectionDrives(data);
+
+    if (error) {
+      throw error;
+    }
+    console.log("Data from table profile:", data);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+async function getConfirmedPayments() {
+  try {
+    var { data, error } = await database.rpc(
+      "admin_other_reports_confirmed_payments"
+    );
+    showConfirmedPayments(data);
+
+    if (error) {
+      throw error;
+    }
+    console.log("Data from table profile:", data);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+async function getAggregatedBlood() {
+  try {
+    var { data, error } = await database.rpc(
+      "get_aggregated_blood_amount"
+    );
+    showAggregatedBlood(data[0]);
+
+    if (error) {
+      throw error;
+    }
+    console.log("Data from table profile:", data);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
+}
 async function confirmProfileRequest(id) {
   var { data, error } = await database
     .from("UPDATE_REQUEST")
@@ -227,6 +318,9 @@ async function removeDonationReq(id) {
 getRecepientRequests();
 getProfileData();
 getDonationRequests();
+getAggregatedBlood();
+getCollectionDrives();
+getDonationReceived();
 function showUsers(data) {
   const usersTable = document.querySelector(".usersTable");
   console.log(data);
@@ -298,7 +392,7 @@ function showProfileRequests(data) {
 }
 function showRecepinetRequests(data) {
   const resReqTable = document.querySelector(".resTable");
-  console.log(data);
+  console.log(resReqTable);
   data.forEach((element) => {
     const resReqTuple = document.createElement("div");
     resReqTuple.className = `r${element.id}`;
@@ -360,52 +454,86 @@ function showDonorRequests(data) {
 getPersonData();
 getRecepientRequests();
 
-const otherReportsButtons = document.getElementsByClassName("other-buttons");
-const otherReportsTable = document.querySelector(".usersTable");
-console.log(usersTable);
 
-function showCollectionDrives() {
+
+
+function showDonationsReceived(data) {
+  const otherReportsTable = document.querySelector(".donorReceievedTable");
+  console.log(otherReportsTable);
+  otherReportsTable.innerHTML = `<div class="d-r_header">
+    <i>Donor Name</i>
+    <i>Donor ID</i>
+    <i>Blood Type</i>
+    <i>Date</i>
+    </div>`;
+  data.forEach((element) => {
+    collectionDriveRow = document.createElement("div");
+    collectionDriveRow.className = `dc${element.donor_name}`;
+    collectionDriveRow.innerHTML = `<i>${element.donor_name}</i>
+      <i>${element.user_id}</i>
+      <i>
+          ${element.blood_type}
+      </i>
+      <i>
+          ${element.donation_date}
+      </i>`;
+    otherReportsTable.append(collectionDriveRow);
+  });
+}
+function showCollectionDrives(data) {
+  const otherReportsTable = document.querySelector(".otherRT");
+  console.log(otherReportsTable);
   otherReportsTable.innerHTML = `<div class="d-r_header">
     <i>Drive ID</i>
     <i>Total blood Recieved</i>
     <i>Start Date</i>
     <i>End Date</i>
     </div>`;
-  collectionDriveRow = document.createElement("div");
-  collectionDriveRow.className = "1223";
-  collectionDriveRow.innerHTML = `<i>1223</i>
-    <i>27</i>
-    <i>
-        12/01/2023
-    </i>
-    <i>
-        12/31/2023
-    </i>`;
-  otherReportsTable.append(collectionDriveRow);
+  data.forEach((element) => {
+    collectionDriveRow = document.createElement("div");
+    collectionDriveRow.className = element.drive_id;
+    collectionDriveRow.innerHTML = `<i>${element.drive_id}</i>
+      <i>${element.total_blood_recieved}</i>
+      <i>
+          ${element.start_date}
+      </i>
+      <i>
+          ${element.end_date}
+      </i>`;
+    otherReportsTable.append(collectionDriveRow);
+  });
 }
 function showConfirmedPayments() {
-  otherReportsTable.innerHTML = `<div class="d-r_header"> <i>Donor  Name</i>
+  const otherReportsTable = document.querySelector(".otherRT");
+  otherReportsTable.innerHTML = `<div class="d-r_header"> <i>Recipient  Name</i>
     <i>User ID</i>
     <i>Blood Type</i>
     <i>Requested Amount</i>
     <i>Paid (SAR):</i>
+    <i>Date:</i>
     </div>
     `;
-  confirmedPaymentRow = document.createElement("div");
-  confirmedPaymentRow.className = "1114927923";
-  confirmedPaymentRow.innerHTML = `<i>Raid qahtani</i>
-    <i>1114927923</i>
+  data.forEach((element) => {
+    confirmedPaymentRow = document.createElement("div");
+    confirmedPaymentRow.className = `c${element.id}`;
+    confirmedPaymentRow.innerHTML = `
+    <i>${element.fname}</i>
+    <i>${element.id}</i>
     <i>
-        O+
+        ${element.blood_type}
     </i>
     <i>
-        3
+        ${element.requested_amount}
     </i>
     <i>
-        3000
+        ${element.price}
+    </i>
+    <i>
+        ${element.date}
     </i>
     `;
-  otherReportsTable.append(confirmedPaymentRow);
+    otherReportsTable.append(confirmedPaymentRow);
+  });
 }
 
 function formatDate() {
@@ -431,3 +559,27 @@ function getFirstLastDay(yearMonthString) {
   };
 }
 console.log(formatDate());
+
+function showAggregatedBlood(data) {
+  console.log(data);
+  const bloodList = document.querySelector(".aggregated");
+  bloodList.innerHTML = `
+        <li>A: ${data["A"] == null? 0:data["A"]}</li>
+        <li>A+: ${data["A+"] == null? 0:data["A+"]}</li>
+        <li>B: ${data["B"] == null? 0:data["B"]}</li></li>
+        <li>B+: ${data["B+"] == null? 0:data["B+"]}</li></li>
+        <li>AB: ${data["AB"] == null? 0:data["AB"]}</li></li>
+        <li>AB+: ${data["AB+"] == null? 0:data["AB+"]}</li></li>
+        <li>O: ${data["O"] == null? 0:data["O"]}</li></li>
+        <li>O+: ${data["O+"] == null? 0:data["O+"]}</li></li>
+  `;
+}
+function handlePeriodChange(selectedValue) {
+  if (selectedValue === 'All') {
+    getDonationReceived();
+  } else if (selectedValue === 'Last-Week') {
+    getDonationReceivedWeek();
+  } else if (selectedValue === 'Last-month') {
+    getDonationReceivedMonth();
+  }
+}
