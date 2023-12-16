@@ -34,6 +34,8 @@ const Address = document.getElementById("address");
 const Password = document.getElementById("password");
 caseNumber.style.display = "none";
 caseNumberLabel.style.display = "none";
+newMedicalHistory.style.display = "none";
+newMedicalLabel.style.display = "none";
 
 async function setEnviroment() {
   if (action == "modify") {
@@ -51,7 +53,7 @@ async function setEnviroment() {
       recRadio.checked = true;
       donRadio.disabled = true;
       recRadio.disabled = true;
-      const { data, error } = await database.rpc("get_profile_info_recipent", {
+      const { data, error } = await database.rpc("get_profileinfo_recipent", {
         entered_id: parseInt(userId),
       });
       caseNumber.value = data.case_number;
@@ -64,6 +66,9 @@ async function setEnviroment() {
     Blood_type.value = data.blood_type;
     Address.value = data.address;
     Password.value = data.password;
+    medicalHistory.disabled = true;
+    newMedicalHistory.style.display = "block";
+    newMedicalLabel.style.display = "block";
   }
   var { data, error } = await database.rpc("profileinfo_medicalhistory", {
     entered_id: parseInt(userId),
@@ -72,9 +77,6 @@ async function setEnviroment() {
   console.log(listOfMedicalHistories);
   medicalString = listToString(listOfMedicalHistories);
   medicalHistory.value = medicalString;
-  medicalHistory.disabled = true;
-  newMedicalHistory.style.display = "block";
-  newMedicalLabel.style.display = "block";
 }
 setEnviroment();
 
@@ -228,6 +230,7 @@ function saveChanges() {
         console.error("Error inserting to PERSON data:", error);
       });
   }
+  window.location.href = "submission.html";
 }
 async function getPersonData() {
   console.log(database);

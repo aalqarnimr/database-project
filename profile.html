@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood Donation - Sign In</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         .profile-info {
             max-width: 400px;
@@ -60,6 +61,12 @@
             border-radius: 4px;
             cursor: pointer;
         }
+        #caseNumber{
+            display: none;
+        }
+        label[for="caseNumber"]{
+            display: none;
+        }
     </style>
     </style>
 </head>
@@ -81,6 +88,9 @@
         
             <label for="lastname">Last Name:</label>
             <input type="text" id="lastname" value="Doe" disabled>
+
+            <label for="ID">ID:</label>
+            <input type="ID" id="ID" value="" minlength="10" maxlength="10" disabled>
         
             <label for="email">Email:</label>
             <input type="email" id="email" value="johndoe@example.com" disabled>
@@ -95,10 +105,16 @@
             <input type="date" id="birthday" value="2000-01-01" disabled>
         
             <label for="medical-history">Medical History:</label>
-            <textarea id="medical-history" rows="4">No significant medical history</textarea>
+            <textarea id="medical-history" rows="4" disabled>No significant medical history</textarea>
+
+            <label for="new-medical-history">new medical history:</label>
+            <input id="new-medical-history"></input>
         
             <label for="weight">Weight:</label>
             <input type="text" id="weight" value="70 kg">
+
+            <label for="caseNumber">Case Number:</label>
+            <input type="text" id="caseNumber" value="" disabled>
         
             <label for="address">Address:</label>
             <input type="text" id="address" value="123 Main Street, City">
@@ -110,14 +126,7 @@
     <footer>
         <p>Contact us for more information.</p>
     </footer>
-    <script>
-        const medicalHistory = document.getElementById("medical-history").value;
-        const weight = document.getElementById("weight").value;
-        const address = document.getElementById("address").value;
-        function saveChanges() {
-            
-        }
-    </script>
+    <script src="profile.js"></script>
 </body>
 
 

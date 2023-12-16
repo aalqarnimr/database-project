@@ -1,5 +1,6 @@
 otherReportsButtons = document.querySelector(".other-buttons");
 otherReportsTable = document.querySelector(".otherReportsTable");
+const usersTable = document.querySelector(".usersTable");
 //-------------------------------database functions-------------------------------------------------------
 const supabaseUrl = "https://vrvtmqckywwkrakjciyq.supabase.co";
 const supabaseKey =
@@ -52,7 +53,9 @@ async function removeUser(id, type) {
       .from("PERSON")
       .update({ Password: "1" })
       .eq("id", id);
-    getPersonData();
+    const dicardedTuple = document.getElementsByClassName(id.toString());
+    console.log(dicardedTuple);
+    dicardedTuple[0].remove();
     if (error) {
       console.error("Error deleting user:", error.message);
     } else {
@@ -63,34 +66,43 @@ async function removeUser(id, type) {
   }
 }
 //---------------------------------database functions-------------------------------------------------------
-getRecepientRequests()
+getRecepientRequests();
 function showUsers(data) {
   const usersTable = document.querySelector(".usersTable");
   console.log(data);
   data.forEach((element) => {
     const userTuple = document.createElement("div");
-    userTuple.className = element.id;
+    userTuple.className = `${element.id}`;
     userTuple.innerHTML = `<i>${element.fname}</i>
         <i>${element.id}</i>
         <i>${element.user_type}</i>
         <i>${element.blood_type}</i>
         <i>
-          <button class=${element.id} onclick="removeUser(${element.id},'${element.user_type}')">
+          <button class=d${element.id} onclick="removeUser(${element.id},'${element.user_type}')">
             <img
               src="trash-xmark-svgrepo-com.svg"
               alt="remove"
               height="15"
             />
           </button>
+          <a href="adminedProfile.html?action=modify&userid=${element.id}&type=${element.user_type}">
           <button>
-            <a href="adminedProfile.html?action=modify&userid=${element.id}&type=${element.user_type}">
               <img
                 src="pen-square-svgrepo-com.svg"
                 alt="modify"
                 height="15"
               />
-            </a>
-          </button>
+              </button>
+              </a>
+          <a href="mailto:${element.email}">
+          <button>
+              <img
+                src="email-svgrepo-com.svg"
+                alt="modify"
+                height="15"
+              />
+              </button>
+              </a>
         </i>`;
     usersTable.append(userTuple);
   });
@@ -100,14 +112,14 @@ function showRecepinetRequests(data) {
   console.log(data);
   data.forEach((element) => {
     const resReqTuple = document.createElement("div");
-    resReqTuple.className = element.id;
+    resReqTuple.className = `d${element.id}`;
     resReqTuple.innerHTML = `<i>${element.fname}</i>
         <i>${element.id}</i>
         <i>${element.blood_type}</i>
         <i>${element.amount}</i>
         <i>${element.charge}</i>
         <i>
-          <button class=${element.id}>
+          <button class=b${element.id}>
             <img
                 src="trash-xmark-svgrepo-com.svg"
                 alt="remove"
@@ -133,7 +145,7 @@ function showDonorRequests(data) {
   console.log(data);
   data.forEach((element) => {
     const resReqTuple = document.createElement("div");
-    resReqTuple.className = element.id;
+    resReqTuple.className = `d${element.id}`;
     resReqTuple.innerHTML = `<i>${element.fname}</i>
         <i>${element.id}</i>
         <i>${element.blood_type}</i>
