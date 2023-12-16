@@ -97,6 +97,8 @@ async function submitRequest(){
         address:Address,
         disease:newMedicalHistory.value,
         date:date
+    }).then((response)=>{
+        window.location.href= "submission.html";
     });
     console.log(error);
 }

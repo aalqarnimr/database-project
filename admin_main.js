@@ -21,6 +21,19 @@ async function getPersonData() {
     console.error("Error fetching data:", error.message);
   }
 }
+async function getProfileData() {
+  try {
+    var { data, error } = await database.rpc("show_update_request");
+
+    if (error) {
+      throw error;
+    }
+    showProfileRequests(data);
+    console.log("Data from table profile:", data);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
+}
 async function getPersonData() {
   try {
     var { data, error } = await database.rpc("get_persons_with_user_type");
@@ -67,6 +80,7 @@ async function removeUser(id, type) {
 }
 //---------------------------------database functions-------------------------------------------------------
 getRecepientRequests();
+getProfileData();
 function showUsers(data) {
   const usersTable = document.querySelector(".usersTable");
   console.log(data);
@@ -107,19 +121,51 @@ function showUsers(data) {
     usersTable.append(userTuple);
   });
 }
+function showProfileRequests(data) {
+  const resReqTable = document.querySelector(".proTable");
+  console.log(data);
+  data.forEach((element) => {
+    const resReqTuple = document.createElement("div");
+    resReqTuple.className = `r${element.id}`;
+        resReqTuple.innerHTML = `<i>${element.id}</i>
+        <i>${element.dieases}</i>
+        <i>${element.weight}</i>
+        <i>${element.address}</i>
+        <i>${element.date}</i>
+        <i>
+          <button class=rb${element.id}>
+            <img
+                src="trash-xmark-svgrepo-com.svg"
+                alt="remove"
+                height="15"
+            />
+          </button>
+          <button>
+            <a href="adminedProfile.html?userid=${element.id}">
+              <img
+                src="check-mark-svgrepo-com.svg"
+                alt="accept"
+                height="15"
+              />
+            </a>
+          </button>
+        </i>`;
+    resReqTable.append(resReqTuple);
+  });
+}
 function showRecepinetRequests(data) {
   const resReqTable = document.querySelector(".resTable");
   console.log(data);
   data.forEach((element) => {
     const resReqTuple = document.createElement("div");
-    resReqTuple.className = `d${element.id}`;
+    resReqTuple.className = `r${element.id}`;
     resReqTuple.innerHTML = `<i>${element.fname}</i>
         <i>${element.id}</i>
         <i>${element.blood_type}</i>
         <i>${element.amount}</i>
         <i>${element.charge}</i>
         <i>
-          <button class=b${element.id}>
+          <button class=rb${element.id}>
             <img
                 src="trash-xmark-svgrepo-com.svg"
                 alt="remove"
