@@ -102,7 +102,7 @@
                 date = new Date();
                 console.log(new Date());
                 var { data, error } = await database.from("DONTION_REQUEST").insert([{
-                    date:new Date(),id:parseInt(userId),confirmed:false
+                    date:date,id:parseInt(userId),confirmed:false
                 }]).then((response) =>{window.location.href="submission.html"})
             }
         </script>

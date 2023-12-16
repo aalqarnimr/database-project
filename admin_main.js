@@ -34,6 +34,39 @@ async function getProfileData() {
     console.error("Error fetching data:", error.message);
   }
 }
+async function confirmProfileRequest(id) {
+  var { data, error } = await database
+    .from("UPDATE_REQUEST")
+    .select()
+    .eq("id", parseInt(id));
+    Idata = data[0];
+    console.log(Idata);
+  try {
+    removeProfileReq(Idata.id);
+    if (Idata.weight != null) {
+      var { data, error } = await database
+        .from("DONOR")
+        .update({ weight: data.weight })
+        .eq("id", Idata.id);
+    }
+    var { data, error } = await database
+      .from("PERSON")
+      .update({ address: Idata.address })
+      .eq("id", Idata.id);
+    if (Idata.disease != null) {
+      var { data, error } = await database
+        .from("Person_medical_history")
+        .insert({ id: Idata.id, medical_history: Idata.disease });
+    }
+
+    if (error) {
+      throw error;
+    }
+    console.log("Data from table profile:", data);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
+}
 async function getPersonData() {
   try {
     var { data, error } = await database.rpc("get_persons_with_user_type");
@@ -78,13 +111,31 @@ async function removeUser(id, type) {
     console.error("Error performing deletion:", error.message);
   }
 }
-async function removeProfile(id, type) {
+async function removeProfileReq(id) {
   try {
     var { data, error } = await database
-      .from("PERSON")
-      .update({ Password: "1" })
+      .from("UPDATE_REQUEST")
+      .delete()
       .eq("id", id);
-    const dicardedTuple = document.getElementsByClassName(id.toString());
+    const dicardedTuple = document.getElementsByClassName("p" + id.toString());
+    console.log(dicardedTuple);
+    dicardedTuple[0].remove();
+    if (error) {
+      console.error("Error deleting user:", error.message);
+    } else {
+      console.log("User deleted successfully:", data);
+    }
+  } catch (error) {
+    console.error("Error performing deletion:", error.message);
+  }
+}
+async function removeBloodReq(id) {
+  try {
+    var { data, error } = await database
+      .from("UPDATE_REQUEST")
+      .delete()
+      .eq("id", id);
+    const dicardedTuple = document.getElementsByClassName("p" + id.toString());
     console.log(dicardedTuple);
     dicardedTuple[0].remove();
     if (error) {
@@ -144,27 +195,25 @@ function showProfileRequests(data) {
   console.log(data);
   data.forEach((element) => {
     const resReqTuple = document.createElement("div");
-    resReqTuple.className = `r${element.id}`;
-        resReqTuple.innerHTML = `<i>${element.user_id}</i>
+    resReqTuple.className = `p${element.user_id}`;
+    resReqTuple.innerHTML = `<i>${element.user_id}</i>
         <i>${element.disease}</i>
         <i>${element.weight}</i>
         <i>${element.address}</i>
         <i>
-          <button class=rb${element.id}>
+          <button class=rb${element.user_id} onclick="removeProfileReq(${element.user_id})">
             <img
                 src="trash-xmark-svgrepo-com.svg"
                 alt="remove"
                 height="15"
             />
           </button>
-          <button>
-            <a href="adminedProfile.html?userid=${element.id}">
+          <button onclick="confirmProfileRequest(${element.user_id})">
               <img
                 src="check-mark-svgrepo-com.svg"
                 alt="accept"
                 height="15"
               />
-            </a>
           </button>
         </i>`;
     resReqTable.append(resReqTuple);
@@ -179,8 +228,8 @@ function showRecepinetRequests(data) {
     resReqTuple.innerHTML = `<i>${element.fname}</i>
         <i>${element.id}</i>
         <i>${element.blood_type}</i>
-        <i>${element.amount}</i>
-        <i>${element.charge}</i>
+        <i>${element.quantity}</i>
+        <i>${element.status}</i>
         <i>
           <button class=rb${element.id}>
             <img

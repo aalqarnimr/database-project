@@ -2,8 +2,8 @@ userId = localStorage.getItem("userID");
 userType = localStorage.getItem("userType");
 profileButton = document.querySelector(".profile-href");
 console.log(profileButton);
-if (userType=="D"){
-    profileButton.setAttribute("href","main-page-donor.html");
+if (userType == "D") {
+  profileButton.setAttribute("href", "main-page-donor.html");
 }
 const supabaseUrl = "https://vrvtmqckywwkrakjciyq.supabase.co";
 const supabaseKey =
@@ -89,16 +89,18 @@ function listToString(arr) {
   return reversedString;
 }
 
-async function submitRequest(){
-    const date = new Date();
-    var { data, error } = await database.rpc("add_update_request", {
-        user_id: parseInt(userId),
-        weight:weight.value,
-        address:Address.value,
-        disease:newMedicalHistory.value,
-        date:date
-    }).then((response)=>{
-        window.location.href= "submission.html";
+async function submitRequest() {
+  const date = new Date();
+  console.log(date);
+  database
+    .rpc("add_update_request", {
+      user_id: parseInt(userId),
+      weight: weight.value,
+      address: Address.value,
+      disease: newMedicalHistory.value,
+      date: date,
+    })
+    .then((response) => {
+      // window.location.href= "submission.html";
     });
-    console.log(error);
 }
