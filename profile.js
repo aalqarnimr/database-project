@@ -94,7 +94,7 @@ async function submitRequest(){
     var { data, error } = await database.rpc("add_update_request", {
         user_id: parseInt(userId),
         weight:weight.value,
-        address:Address,
+        address:Address.value,
         disease:newMedicalHistory.value,
         date:date
     }).then((response)=>{

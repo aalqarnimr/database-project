@@ -78,6 +78,24 @@ async function removeUser(id, type) {
     console.error("Error performing deletion:", error.message);
   }
 }
+async function removeProfile(id, type) {
+  try {
+    var { data, error } = await database
+      .from("PERSON")
+      .update({ Password: "1" })
+      .eq("id", id);
+    const dicardedTuple = document.getElementsByClassName(id.toString());
+    console.log(dicardedTuple);
+    dicardedTuple[0].remove();
+    if (error) {
+      console.error("Error deleting user:", error.message);
+    } else {
+      console.log("User deleted successfully:", data);
+    }
+  } catch (error) {
+    console.error("Error performing deletion:", error.message);
+  }
+}
 //---------------------------------database functions-------------------------------------------------------
 getRecepientRequests();
 getProfileData();
@@ -127,11 +145,10 @@ function showProfileRequests(data) {
   data.forEach((element) => {
     const resReqTuple = document.createElement("div");
     resReqTuple.className = `r${element.id}`;
-        resReqTuple.innerHTML = `<i>${element.id}</i>
-        <i>${element.dieases}</i>
+        resReqTuple.innerHTML = `<i>${element.user_id}</i>
+        <i>${element.disease}</i>
         <i>${element.weight}</i>
         <i>${element.address}</i>
-        <i>${element.date}</i>
         <i>
           <button class=rb${element.id}>
             <img
