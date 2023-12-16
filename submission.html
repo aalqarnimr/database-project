@@ -27,11 +27,20 @@
         piece of our journey. Every action, no matter how small, contributes to
         the bigger picture. Stay tuned as we progress forward together!
       </h1>
-      <button onclick="returnToAdminMain()">Return</button>
+      <button onclick="returnToMain()">Return</button>
     </main>
     <script>
-      function returnToAdminMain() {
-        window.location.href = "admin-main.html";
+        userType = localStorage.getItem("userType");
+      function returnToMain() {
+        if (userType=="A"){
+            window.location.href = "admin-main.html";
+        }
+        if (userType=="D"){
+            window.location.href = "main-page-donor.html";
+        }
+        if (userType=="R"){
+            window.location.href = "main-page.html";
+        }
       }
     </script>
   </body>

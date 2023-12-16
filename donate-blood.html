@@ -85,10 +85,11 @@
         </div>
 
         <script>
+            userId = localStorage.getItem("userID");
             function continueToRequest() {
                 const checkbox = document.getElementById('agreeCheckbox');
                 if (checkbox.checked) {
-                    window.location.href = 'request_form.html';
+                    sendDonationRequest();
                 } else {
                     alert('Please agree to the terms and conditions.');
                 }
@@ -98,7 +99,11 @@
                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydnRtcWNreXd3a3Jha2pjaXlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzMzY3NTQsImV4cCI6MjAxNzkxMjc1NH0.TC_jAS54Muu2Nz0tjVrryX1tyqrcA05OHTu5KaUEWck";
             var database = supabase.createClient(supabaseUrl, supabaseKey);
             async function sendDonationRequest(){
-                var { data, error } = await database.rpc("get_persons_with_user_type");
+                date = new Date();
+                console.log(new Date());
+                var { data, error } = await database.from("DONTION_REQUEST").insert([{
+                    date:new Date(),id:parseInt(userId),confirmed:false
+                }]).then((response) =>{window.location.href="submission.html"})
             }
         </script>
 </body>

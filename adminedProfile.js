@@ -51,11 +51,13 @@ async function setEnviroment() {
       birthday.value = data.birthday;
     } else if (userType == "recipient") {
       recRadio.checked = true;
+      toggleRecepientProfile();
       donRadio.disabled = true;
       recRadio.disabled = true;
-      const { data, error } = await database.rpc("get_profileinfo_recipent", {
+      var { data, error } = await database.rpc("get_profileinfo_recipent", {
         entered_id: parseInt(userId),
       });
+      data = data[0];
       caseNumber.value = data.case_number;
     }
     ID.value = userId;
@@ -81,13 +83,15 @@ async function setEnviroment() {
 setEnviroment();
 
 async function saveMedicalHistory(list, id) {
-  for (element in list) {
-    var { data, error } = await database
-      .from("Person_medical_history")
-      .insert([{ id, medical_history: element }])
-      .then((response) => {
-        console.log("Medial history saved seccessfully");
-      });
+  if (list.length != 0) {
+    for (element in list) {
+      var { data, error } = await database
+        .from("Person_medical_history")
+        .insert([{ id, medical_history: element }])
+        .then((response) => {
+          console.log("Medial history saved seccessfully");
+        });
+    }
   }
 }
 
@@ -162,6 +166,7 @@ function saveChanges() {
           .insert(mappedObjects)
           .then((response) => {
             console.log("Medial history saved seccessfully");
+            window.location.href = "submission.html";
           });
       })
       .catch((error) => {
@@ -223,14 +228,15 @@ function saveChanges() {
             .insert({ id, medical_history: newMedicalHistory.value })
             .then((response) => {
               console.log("Medial history saved seccessfully");
+              window.location.href = "submission.html";
             });
         }
+        window.location.href = "submission.html";
       })
       .catch((error) => {
         console.error("Error inserting to PERSON data:", error);
       });
   }
-  window.location.href = "submission.html";
 }
 async function getPersonData() {
   console.log(database);
