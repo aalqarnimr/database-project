@@ -75,7 +75,7 @@
     <header>
         <h1>Sign In to Blood Donation</h1>
         <nav>
-            <a href="main-page.html">Home</a>
+            <a href="main-page.html" class="profile-href">Home</a>
             <a href="profile.html">Profile</a>
         </nav>
     </header>
@@ -84,25 +84,25 @@
         <div class="profile-info">
             <h1>Profile Information</h1>
             <label for="firstname">First Name:</label>
-            <input type="text" id="firstname" value="John" disabled>
+            <input type="text" id="firstname" value="" disabled>
         
             <label for="lastname">Last Name:</label>
-            <input type="text" id="lastname" value="Doe" disabled>
+            <input type="text" id="lastname" value="" disabled>
 
             <label for="ID">ID:</label>
             <input type="ID" id="ID" value="" minlength="10" maxlength="10" disabled>
         
             <label for="email">Email:</label>
-            <input type="email" id="email" value="johndoe@example.com" disabled>
+            <input type="email" id="email" value="" disabled>
         
             <label for="contact-number">Contact Number:</label>
-            <input type="text" id="contact-number" value="1234567890" disabled>
+            <input type="text" id="contact-number" value="" disabled>
         
             <label for="blood-type">Blood Type:</label>
-            <input type="text" id="blood-type" value="A+" disabled>
+            <input type="text" id="blood-type" value="" disabled>
         
             <label for="birthday">Birthday:</label>
-            <input type="date" id="birthday" value="2000-01-01" disabled>
+            <input type="date" id="birthday" value="" disabled>
         
             <label for="medical-history">Medical History:</label>
             <textarea id="medical-history" rows="4" disabled>No significant medical history</textarea>
@@ -110,16 +110,16 @@
             <label for="new-medical-history">new medical history:</label>
             <input id="new-medical-history"></input>
         
-            <label for="weight">Weight:</label>
-            <input type="text" id="weight" value="70 kg">
+            <label for="weight">Weight (Kg):</label>
+            <input type="number" id="weight" value="">
 
             <label for="caseNumber">Case Number:</label>
             <input type="text" id="caseNumber" value="" disabled>
         
             <label for="address">Address:</label>
-            <input type="text" id="address" value="123 Main Street, City">
+            <input type="text" id="address" value="">
         
-            <button onclick="saveChanges()">Request Changes</button>
+            <button onclick="submitRequest()">Request Changes</button>
         </div>
     </main>
 

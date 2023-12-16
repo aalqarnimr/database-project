@@ -1,5 +1,10 @@
 userId = localStorage.getItem("userID");
 userType = localStorage.getItem("userType");
+profileButton = document.querySelector(".profile-href");
+console.log(profileButton);
+if (userType=="D"){
+    profileButton.setAttribute("href","main-page-donor.html");
+}
 const supabaseUrl = "https://vrvtmqckywwkrakjciyq.supabase.co";
 const supabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydnRtcWNreXd3a3Jha2pjaXlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzMzY3NTQsImV4cCI6MjAxNzkxMjc1NH0.TC_jAS54Muu2Nz0tjVrryX1tyqrcA05OHTu5KaUEWck";
@@ -84,6 +89,14 @@ function listToString(arr) {
   return reversedString;
 }
 
-async function saveChanges(){
-    
+async function submitRequest(){
+    const date = new Date();
+    var { data, error } = await database.rpc("add_update_request", {
+        user_id: parseInt(userId),
+        weight:weight.value,
+        address:Address,
+        disease:newMedicalHistory.value,
+        date:date
+    });
+    console.log(error);
 }

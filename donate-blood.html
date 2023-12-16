@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Request Blood</title>
     <link rel="stylesheet" href="styles.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         /* Add your styles for the request blood page */
         body {
@@ -48,18 +49,18 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Blood Donation website</h1>
         <nav>
-          <a href="main-page.html">Home</a>
-          <a href="profile.html">Update Profile</a>
-          <a href="Request-Blood.html">Request Blood</a>
-          <a href="index.html">logout</a>
+            <a href="main-page-donor.html">Home</a>
+            <a href="profile.html">Update Profile</a>
+            <a href="index.html">logout</a>
         </nav>
-      </header>
+    </header>
     <div class="container">
-        <h1 style="text-align: center;">Request Blood</h1>
+        <h1 style="text-align: center;">Request Donation</h1>
         <div class="disclaimer">
             <h2>Disclaimer and Conditions for Blood Donation</h2>
             <p>
@@ -69,27 +70,37 @@
                 <li>You have consumed a meal within the last 12 hours.</li>
                 <li>You have not donated blood in the last 4 months.</li>
                 <li>Your decision to donate blood is voluntary and without any undue pressure.</li>
-                <li>You understand that the hospital or facility collecting the blood is not responsible for any side effects post-donation.</li>
+                <li>You understand that the hospital or facility collecting the blood is not responsible for any side
+                    effects post-donation.</li>
                 <li>You will follow any post-donation guidelines provided by medical professionals.</li>
-                <li>You have disclosed any relevant medical conditions or medications affecting your ability to donate blood.</li>
+                <li>You have disclosed any relevant medical conditions or medications affecting your ability to donate
+                    blood.</li>
             </ul>
         </div>
         <div class="checkbox-container">
             <input type="checkbox" id="agreeCheckbox">
             <label for="agreeCheckbox" class="checkbox-label">I agree to the terms and conditions</label>
-        <br>
-        <button class="continue-button" onclick="continueToRequest()">Continue</button>
-    </div>
+            <br>
+            <button class="continue-button" onclick="continueToRequest()">Continue</button>
+        </div>
 
-    <script>
-        function continueToRequest() {
-            const checkbox = document.getElementById('agreeCheckbox');
-            if (checkbox.checked) {
-                window.location.href = 'request_form.html';
-            } else {
-                alert('Please agree to the terms and conditions.');
+        <script>
+            function continueToRequest() {
+                const checkbox = document.getElementById('agreeCheckbox');
+                if (checkbox.checked) {
+                    window.location.href = 'request_form.html';
+                } else {
+                    alert('Please agree to the terms and conditions.');
+                }
             }
-        }
-    </script>
+            const supabaseUrl = "https://vrvtmqckywwkrakjciyq.supabase.co";
+            const supabaseKey =
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydnRtcWNreXd3a3Jha2pjaXlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzMzY3NTQsImV4cCI6MjAxNzkxMjc1NH0.TC_jAS54Muu2Nz0tjVrryX1tyqrcA05OHTu5KaUEWck";
+            var database = supabase.createClient(supabaseUrl, supabaseKey);
+            async function sendDonationRequest(){
+                var { data, error } = await database.rpc("get_persons_with_user_type");
+            }
+        </script>
 </body>
+
 </html>

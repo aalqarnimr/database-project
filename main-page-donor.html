@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blood Donation - Sign Up</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
       body {
         margin: 0;
@@ -135,5 +136,43 @@
       </section>
     </main>
     <footer>&copy; 2023 Blood Donation System | All rights reserved.</footer>
+    <script>
+      const supabaseUrl = "https://vrvtmqckywwkrakjciyq.supabase.co";
+      const supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydnRtcWNreXd3a3Jha2pjaXlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzMzY3NTQsImV4cCI6MjAxNzkxMjc1NH0.TC_jAS54Muu2Nz0tjVrryX1tyqrcA05OHTu5KaUEWck";
+      var database = supabase.createClient(supabaseUrl, supabaseKey);
+      function showHistory(data) {
+        const resReqTable = document.querySelector(".resTable");
+        console.log(data);
+        data.forEach((element) => {
+          const resReqTuple = document.createElement("div");
+          resReqTuple.className = `d${element.id}`;
+          resReqTuple.innerHTML = `<i>${element.fname}</i>
+        <i>${element.id}</i>
+        <i>${element.blood_type}</i>
+        <i>${element.amount}</i>
+        <i>${element.charge}</i>
+        <i>
+          <button class=b${element.id}>
+            <img
+                src="trash-xmark-svgrepo-com.svg"
+                alt="remove"
+                height="15"
+            />
+          </button>
+          <button>
+            <a href="adminedProfile.html?userid=${element.id}">
+              <img
+                src="check-mark-svgrepo-com.svg"
+                alt="accept"
+                height="15"
+              />
+            </a>
+          </button>
+        </i>`;
+          resReqTable.append(resReqTuple);
+        });
+      }
+    </script>
   </body>
 </html>
