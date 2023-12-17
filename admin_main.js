@@ -315,7 +315,6 @@ async function removeDonationReq(id) {
   }
 }
 //---------------------------------database functions-------------------------------------------------------
-getRecepientRequests();
 getProfileData();
 getDonationRequests();
 getAggregatedBlood();
@@ -409,14 +408,12 @@ function showRecepinetRequests(data) {
                 height="15"
             />
           </button>
-          <button>
-            <a href="adminedProfile.html?userid=${element.id}">
+          <button onclick="openFloatingWindow()">
               <img
                 src="check-mark-svgrepo-com.svg"
                 alt="accept"
                 height="15"
               />
-            </a>
           </button>
         </i>`;
     resReqTable.append(resReqTuple);
@@ -582,4 +579,13 @@ function handlePeriodChange(selectedValue) {
   } else if (selectedValue === 'Last-month') {
     getDonationReceivedMonth();
   }
+}
+function openFloatingWindow() {
+  document.getElementById('overlay').style.display = 'block';
+  document.getElementById('floatingWindow').style.display = 'block';
+}
+
+function closeFloatingWindow() {
+  document.getElementById('overlay').style.display = 'none';
+  document.getElementById('floatingWindow').style.display = 'none';
 }
