@@ -1,174 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blood Donation - Sign Up</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #fff5e0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
 
-      header {
-        background-color: #141e46;
-        color: #fff5e0;
-        padding: 20px 0;
-        text-align: center;
-        width: 100%;
-        margin-bottom: 60px;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blood Donation - Sign Up</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff5e0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-      header h1 {
-        margin: 0;
-      }
+    header {
+      background-color: #141e46;
+      color: #fff5e0;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      margin-bottom: 60px;
+    }
 
-      nav {
-        background-color: #ff6969;
-        padding: 10px;
-      }
+    header h1 {
+      margin: 0;
+    }
 
-      nav a {
-        text-decoration: none;
-        color: #fff5e0;
-        padding: 10px 20px;
-        margin: 0 10px;
-        border-radius: 5px;
-        transition: background-color 0.3s, color 0.3s;
-      }
+    nav {
+      background-color: #ff6969;
+      padding: 10px;
+    }
 
-      nav a:hover {
-        background-color: #fff5e0;
-        color: #ff6969;
-      }
+    nav a {
+      text-decoration: none;
+      color: #fff5e0;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-      main {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        margin: 50px;
-      }
+    nav a:hover {
+      background-color: #fff5e0;
+      color: #ff6969;
+    }
 
-      .user-history {
-        width: 100wh;
-        background-color: white;
-        min-height: 100px;
-        border-radius: 5px;
-        border: 1px solid black;
-      }
-      .reports-types {
-        display: flex;
-        flex-direction: row;
-        flex: 1;
-      }
-      button {
-        padding: 5px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        border: 1px solid black;
-        transition: background-color 0.5s linear;
-      }
-      button:hover {
-        background-color: rgb(167, 167, 167);
-      }
-      .users-container {
-        margin: 10px;
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin: 50px;
+    }
 
-        border: 1px solid black;
-        padding-bottom: 20px;
-      }
-      .users-container > * {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid black;
-        margin-bottom: 5px;
-        flex-basis: 1;
-        padding: 5px;
-      }
-      .users-container > * > * {
-        flex: 1;
-        text-align: center;
-      }
-      .d-r_header {
-        background-color: darkgray;
-        padding: 10px;
-      }
+    .user-history {
+      width: 100wh;
+      background-color: white;
+      min-height: 100px;
+      border-radius: 5px;
+      border: 1px solid black;
+    }
 
-      footer {
-        background-color: #ff6969;
-        color: #fff5e0;
-        padding: 20px 0;
-        text-align: center;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>Blood Donation website</h1>
-      <nav>
-        <a href="main-page.html">Home</a>
-        <a href="profile.html">Update Profile</a>
-        <a href="Request-Blood.html">Request Blood</a>
-        <a href="index.html">logout</a>
-      </nav>
-    </header>
-    <main>
-      <h1>My history:</h1>
-      <section class="user-history">
-        <div class="users-container otherReportsTable">
-          <div class="d-r_header">
-            <i>blood Recieved</i>
-            <i>blood Type</i>
-            <i>payment amount</i>
-            <i>Date</i>
-          </div>
+    .reports-types {
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+    }
+
+    button {
+      padding: 5px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid black;
+      transition: background-color 0.5s linear;
+    }
+
+    button:hover {
+      background-color: rgb(167, 167, 167);
+    }
+
+    .users-container {
+      margin: 10px;
+
+      border: 1px solid black;
+      padding-bottom: 20px;
+    }
+
+    .users-container>* {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid black;
+      margin-bottom: 5px;
+      flex-basis: 1;
+      padding: 5px;
+    }
+
+    .users-container>*>* {
+      flex: 1;
+      text-align: center;
+    }
+
+    .d-r_header {
+      background-color: darkgray;
+      padding: 10px;
+    }
+
+    footer {
+      background-color: #ff6969;
+      color: #fff5e0;
+      padding: 20px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Blood Donation website</h1>
+    <nav>
+      <a href="profile.html" class="profile_href">Update Profile</a>
+      <a href="Request-Blood.html" class="request_href">Request Blood</a>
+      <a href="index.html">logout</a>
+    </nav>
+  </header>
+  <main>
+    <h1>My history:</h1>
+    <section class="user-history">
+      <div class="users-container otherReportsTable">
+        <div class="d-r_header">
+          <i>blood Recieved</i>
+          <i>blood Type</i>
+          <i>payment amount</i>
+          <i>Date</i>
         </div>
-      </section>
-    </main>
-    <footer>&copy; 2023 Blood Donation System | All rights reserved.</footer>
-    <script>
-      userId = localStorage.getItem("userID");
-      const supabaseUrl = "https://vrvtmqckywwkrakjciyq.supabase.co";
-      const supabaseKey =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydnRtcWNreXd3a3Jha2pjaXlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzMzY3NTQsImV4cCI6MjAxNzkxMjc1NH0.TC_jAS54Muu2Nz0tjVrryX1tyqrcA05OHTu5KaUEWck";
-      var database = supabase.createClient(supabaseUrl, supabaseKey);
-      async function getPersonData() {
-        try {
-          var { data, error } = await database.rpc("get_myhistory_recipent", {
-            entered_id: userId,
-          });
-          showHistory(data);
-          if (error) {
-            throw error;
-          }
-          console.log("Data from table:", data);
-        } catch (error) {
-          console.error("Error fetching data:", error.message);
-        }
-      }
-      function showHistory(data) {
-        const resReqTable = document.querySelector(".otherReportsTable");
-        console.log(data);
-        data.forEach((element) => {
-          const resReqTuple = document.createElement("div");
-          resReqTuple.className = `hello`;
-          resReqTuple.innerHTML = `<i>${element.blood_recieved}</i>
-        <i>${element.blood_type}</i>
-        <i>${
-          element.payment_amount == null ? "Free" : element.payment_amount
-        }</i><i>${element.recieved_date}</i>`;
-          resReqTable.append(resReqTuple);
+      </div>
+    </section>
+  </main>
+  <footer>&copy; 2023 Blood Donation System | All rights reserved.</footer>
+  <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const userId = urlParams.get("id");
+    profileHref = document.getElementsByClassName("profile_href");
+    profileHref[0].setAttribute("href", `profile.html?id=${userId}&userType=R`);
+    requstHref = document.getElementsByClassName("request_href");
+    requstHref[0].setAttribute("href", `Request-Blood.html?id=${userId}&userType=R`);
+    homeHref = document.getElementsByClassName("home_href");
+    homeHref[0].setAttribute("href", `main-page.html?id=${userId}&userType=R`);
+    const supabaseUrl = "https://vrvtmqckywwkrakjciyq.supabase.co";
+    const supabaseKey =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydnRtcWNreXd3a3Jha2pjaXlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzMzY3NTQsImV4cCI6MjAxNzkxMjc1NH0.TC_jAS54Muu2Nz0tjVrryX1tyqrcA05OHTu5KaUEWck";
+    var database = supabase.createClient(supabaseUrl, supabaseKey);
+    async function getPersonData() {
+      try {
+        var { data, error } = await database.rpc("get_myhistory_recipent", {
+          entered_id: userId,
         });
+        showHistory(data);
+        if (error) {
+          throw error;
+        }
+        console.log("Data from table:", data);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
       }
-      getPersonData();
-    </script>
-  </body>
+    }
+    function showHistory(data) {
+      const resReqTable = document.querySelector(".otherReportsTable");
+      console.log(data);
+      data.forEach((element) => {
+        const resReqTuple = document.createElement("div");
+        resReqTuple.className = `hello`;
+        resReqTuple.innerHTML = `<i>${element.blood_recieved}</i>
+        <i>${element.blood_type}</i>
+        <i>${element.payment_amount == null ? "Free" : element.payment_amount
+          }</i><i>${element.recieved_date}</i>`;
+        resReqTable.append(resReqTuple);
+      });
+    }
+    getPersonData();
+  </script>
+</body>
+
 </html>

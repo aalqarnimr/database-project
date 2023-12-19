@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Submission Page</title>
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-      button {
-        width: 40%;
-        height: 5rem;
-        border-radius: 365px;
-        border: none;
-        background-color: rgb(255, 255, 255);
+
+<head>
+  <title>Submission Page</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    button {
+      width: 40%;
+      height: 5rem;
+      border-radius: 365px;
+      border: none;
+      background-color: rgb(255, 255, 255);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    main {
+      margin: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>
+      Thank you for taking action! Your input has been received and is a vital
+      piece of our journey. Every action, no matter how small, contributes to
+      the bigger picture. Stay tuned as we progress forward together!
+    </h1>
+    <button onclick="returnToMain()">Return</button>
+  </main>
+  <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const userId = urlParams.get("id");
+    const userType = urlParams.get("userType");
+    function returnToMain() {
+      if (userType == "A") {
+        window.location.href = "admin-main.html?userType=A";
       }
-      h1 {
-        text-align: center;
-        margin-bottom: 70px;
+      if (userType == "D") {
+        window.location.href = `main-page-donor.html?id=${userId}&userType=D`;
       }
-      main {
-        margin: 200px;
+      if (userType == "R") {
+        window.location.href = `main-page.html?id=${userId}&userType=R`;
       }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>
-        Thank you for taking action! Your input has been received and is a vital
-        piece of our journey. Every action, no matter how small, contributes to
-        the bigger picture. Stay tuned as we progress forward together!
-      </h1>
-      <button onclick="returnToMain()">Return</button>
-    </main>
-    <script>
-        userType = localStorage.getItem("userType");
-      function returnToMain() {
-        if (userType=="A"){
-            window.location.href = "admin-main.html";
-        }
-        if (userType=="D"){
-            window.location.href = "main-page-donor.html";
-        }
-        if (userType=="R"){
-            window.location.href = "main-page.html";
-        }
-      }
-    </script>
-  </body>
+    }
+  </script>
+</body>
+
 </html>

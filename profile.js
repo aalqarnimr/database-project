@@ -1,9 +1,18 @@
-userId = localStorage.getItem("userID");
-userType = localStorage.getItem("userType");
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const userId = urlParams.get("id");
+const userType = urlParams.get("userType");
+
+homeHref = document.getElementsByClassName("profile-href");
+homeHref[0].setAttribute(
+  "href",
+  `main-page.html?id=${userId}&userType=R`
+);
+
 profileButton = document.querySelector(".profile-href");
 console.log(profileButton);
 if (userType == "D") {
-  profileButton.setAttribute("href", "main-page-donor.html");
+  profileButton.setAttribute("href", `main-page-donor.html?id=${userId}&userType=D`);
 }
 const supabaseUrl = "https://vrvtmqckywwkrakjciyq.supabase.co";
 const supabaseKey =
@@ -101,6 +110,6 @@ async function submitRequest() {
       date: date,
     })
     .then((response) => {
-      window.location.href= "submission.html";
+      window.location.href = `submission.html?id=${userId}&userType=${userType}`;;
     });
 }

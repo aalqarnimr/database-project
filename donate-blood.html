@@ -54,8 +54,7 @@
     <header>
         <h1>Blood Donation website</h1>
         <nav>
-            <a href="main-page-donor.html">Home</a>
-            <a href="profile.html">Update Profile</a>
+            <a href="main-page-donor.html" class="home_href">Home</a>
             <a href="index.html">logout</a>
         </nav>
     </header>
@@ -85,7 +84,11 @@
         </div>
 
         <script>
-            userId = localStorage.getItem("userID");
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const userId = urlParams.get("id");
+            homeHref = document.getElementsByClassName("home_href");
+            homeHref[0].setAttribute("href", `main-page-donor.html?id=${userId}&userType=D`);
             function continueToRequest() {
                 const checkbox = document.getElementById('agreeCheckbox');
                 if (checkbox.checked) {
@@ -98,12 +101,12 @@
             const supabaseKey =
                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZydnRtcWNreXd3a3Jha2pjaXlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDIzMzY3NTQsImV4cCI6MjAxNzkxMjc1NH0.TC_jAS54Muu2Nz0tjVrryX1tyqrcA05OHTu5KaUEWck";
             var database = supabase.createClient(supabaseUrl, supabaseKey);
-            async function sendDonationRequest(){
+            async function sendDonationRequest() {
                 date = new Date();
                 console.log(new Date());
                 var { data, error } = await database.from("DONTION_REQUEST").insert([{
-                    date:date,id:parseInt(userId),confirmed:false
-                }]).then((response) =>{window.location.href="submission.html"})
+                    date: date, id: parseInt(userId), confirmed: false
+                }]).then((response) => { window.location.href = `submission.html?id=${userId}&userType=D`; })
             }
         </script>
 </body>

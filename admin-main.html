@@ -185,13 +185,16 @@
       animation: fallFromTop 0.2s ease forwards;
       width: 60%;
       border-radius: 10px;
+      overflow-x: scroll;
+      max-height: 80vh;
     }
 
     .floating-window .content button {
       display: inline;
       margin-top: 10px;
     }
-    .bloodButtons{
+
+    .bloodButtons {
       display: flex;
       justify-content: end;
       padding-right: 15px;
@@ -204,11 +207,11 @@
       }
 
       to {
-        top: 50%;
+        top: 8rem;
       }
     }
 
-    .bloodTable{
+    .bloodTable {
       padding-bottom: 20px;
       margin: 10px;
     }
@@ -228,14 +231,19 @@
       text-align: center;
     }
 
-    .bloodHeader > * {
+    .bloodHeader>* {
       font-weight: 800;
     }
-    .bloodHeader{
+
+    .bloodHeader {
       border-bottom: 1px solid black;
       margin-bottom: 15px;
     }
 
+    #price {
+      padding: 5px;
+      width: 20%;
+    }
   </style>
 </head>
 
@@ -302,13 +310,14 @@
             <div class="bloodElement">
               <i>B+</i>
               <i>16/12/2023</i>
-              <i><input type="checkbox" name="bloodchk" id="bloodchk"></i>
+              <i><input type="checkbox" name="bloodchk1" id="bloodchk"></i>
             </div>
           </div>
         </section>
+        <input type="number" id="price" placeholder="Enter Charged Amount">
         <div class="bloodButtons">
           <button onclick="closeFloatingWindow()">Close</button>
-          <button onclick="closeFloatingWindow()">Confirm</button>
+          <button onclick="closeFloatingWindow()" class="confirm-button">Confirm</button>
         </div>
 
       </div>

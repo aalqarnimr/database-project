@@ -34,9 +34,7 @@ async function getProfileData() {
 }
 async function getDonationReceived() {
   try {
-    var { data, error } = await database.rpc(
-      "get_admin_donations_recieved"
-    );
+    var { data, error } = await database.rpc("get_admin_donations_recieved");
     showDonationsReceived(data);
 
     if (error) {
@@ -63,7 +61,7 @@ async function getDonationReceivedMonth() {
   }
 }
 async function getDonationReceivedWeek() {
-  console.log("hereee")
+  console.log("hereee");
   try {
     var { data, error } = await database.rpc(
       "get_admin_donations_recieved_last_week"
@@ -110,9 +108,7 @@ async function getConfirmedPayments() {
 }
 async function getAggregatedBlood() {
   try {
-    var { data, error } = await database.rpc(
-      "get_aggregated_blood_amount"
-    );
+    var { data, error } = await database.rpc("get_aggregated_blood_amount");
     showAggregatedBlood(data[0]);
 
     if (error) {
@@ -186,6 +182,7 @@ async function confirmDonationRequest(id) {
   try {
     date = new Date();
     collectionDrive = formatDate(date);
+    removeDonationReq(id);
     if (!collectionDrive) {
       collectionDrive = null;
     } else {
@@ -224,6 +221,48 @@ async function confirmDonationRequest(id) {
     console.error("Error fetching data:", error.message);
   }
 }
+
+const bloodCompatibility = {
+  "A+": ["A+", "A-", "O+", "O-"],
+  "A-": ["A-", "O-"],
+  "B+": ["B+", "B-", "O+", "O-"],
+  "B-": ["B-", "O-"],
+  "AB+": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+  "AB-": ["A-", "B-", "AB-", "O-"],
+  "O+": ["O+", "O-"],
+  "O-": ["O-"],
+};
+async function getCompatibleBlood(id, bloodType, payment) {
+  openFloatingWindow();
+  var { data, error } = await database
+    .rpc("get_nonused_blood")
+    .select()
+    .in("blood_type", bloodCompatibility[bloodType.toUpperCase()]);
+  console.log(data);
+  console.log(error);
+  console.log(bloodType);
+  confirmButton = document.querySelector(".confirm-button");
+  confirmButton.setAttribute("onclick", `ConfirmBloodReq("${id}")`);
+  showCompatibleBlood(data, payment);
+}
+async function ConfirmBloodReq(id) {
+  chargeInput = document.querySelector("#price");
+  selectedBags = getCheckedBoxes();
+
+  if (chargeInput.value == null) {
+    chargeValue = 0;
+  } else {
+    chargeValue = chargeInput.value;
+  }
+  date = new Date();
+  var { data, error } = await database
+    .from("BLOOD")
+    .update({ receiving_date: date, rid: id, })
+    .in("tag_number", selectedBags);
+  console.log(error);
+
+}
+
 async function getDonationRequests() {
   try {
     var { data, error } = await database.rpc("get_donation_requests");
@@ -408,7 +447,7 @@ function showRecepinetRequests(data) {
                 height="15"
             />
           </button>
-          <button onclick="openFloatingWindow()">
+          <button onclick='getCompatibleBlood(${element.id}, "${element.blood_type}", "${element.status}")'>
               <img
                 src="check-mark-svgrepo-com.svg"
                 alt="accept"
@@ -450,9 +489,6 @@ function showDonorRequests(data) {
 }
 getPersonData();
 getRecepientRequests();
-
-
-
 
 function showDonationsReceived(data) {
   const otherReportsTable = document.querySelector(".donorReceievedTable");
@@ -561,31 +597,69 @@ function showAggregatedBlood(data) {
   console.log(data);
   const bloodList = document.querySelector(".aggregated");
   bloodList.innerHTML = `
-        <li>A: ${data["A"] == null? 0:data["A"]}</li>
-        <li>A+: ${data["A+"] == null? 0:data["A+"]}</li>
-        <li>B: ${data["B"] == null? 0:data["B"]}</li></li>
-        <li>B+: ${data["B+"] == null? 0:data["B+"]}</li></li>
-        <li>AB: ${data["AB"] == null? 0:data["AB"]}</li></li>
-        <li>AB+: ${data["AB+"] == null? 0:data["AB+"]}</li></li>
-        <li>O: ${data["O"] == null? 0:data["O"]}</li></li>
-        <li>O+: ${data["O+"] == null? 0:data["O+"]}</li></li>
+        <li>A: ${data["A"] == null ? 0 : data["A"]}</li>
+        <li>A+: ${data["A+"] == null ? 0 : data["A+"]}</li>
+        <li>B: ${data["B"] == null ? 0 : data["B"]}</li></li>
+        <li>B+: ${data["B+"] == null ? 0 : data["B+"]}</li></li>
+        <li>AB: ${data["AB"] == null ? 0 : data["AB"]}</li></li>
+        <li>AB+: ${data["AB+"] == null ? 0 : data["AB+"]}</li></li>
+        <li>O: ${data["O"] == null ? 0 : data["O"]}</li></li>
+        <li>O+: ${data["O+"] == null ? 0 : data["O+"]}</li></li>
   `;
 }
 function handlePeriodChange(selectedValue) {
-  if (selectedValue === 'All') {
+  if (selectedValue === "All") {
     getDonationReceived();
-  } else if (selectedValue === 'Last-Week') {
+  } else if (selectedValue === "Last-Week") {
     getDonationReceivedWeek();
-  } else if (selectedValue === 'Last-month') {
+  } else if (selectedValue === "Last-month") {
     getDonationReceivedMonth();
   }
 }
 function openFloatingWindow() {
-  document.getElementById('overlay').style.display = 'block';
-  document.getElementById('floatingWindow').style.display = 'block';
+  document.getElementById("overlay").style.display = "block";
+  document.getElementById("floatingWindow").style.display = "block";
+
+  document.body.style.overflow = "hidden";
 }
 
 function closeFloatingWindow() {
-  document.getElementById('overlay').style.display = 'none';
-  document.getElementById('floatingWindow').style.display = 'none';
+  document.getElementById("overlay").style.display = "none";
+  document.getElementById("floatingWindow").style.display = "none";
+
+  document.body.style.overflow = "auto";
+}
+
+function showCompatibleBlood(data, payment) {
+  table = document.querySelector(".bloodTable");
+  table.innerHTML = `<div class="bloodHeader">
+  <i>Blood Type</i>
+  <i>Donation Date</i>
+  <i>Select</i>
+  </div>`;
+  priceInput = document.querySelector("#price");
+  if (payment == "charged") {
+    priceInput.style.display = "inline";
+  } else {
+    priceInput.style.display = "none";
+  }
+  data.forEach((element) => {
+    console.log(element);
+    newRow = document.createElement("div");
+    newRow.className = element.tag_number;
+    newRow.innerHTML = `<i>${element.blood_type}</i>
+    <i>${element.donation_date}</i>
+    <i><input type="checkbox" name="bloodchk1" id="${element.tag_number}"></i>`;
+    table.append(newRow);
+  });
+}
+
+function getCheckedBoxes() {
+  const checkboxes = document.querySelectorAll(".bloodchk:checked");
+  const checkedIds = [];
+  checkboxes.forEach((checkbox) => {
+    checkedIds.push(checkbox.id);
+  });
+  console.log("Checked IDs:", checkedIds);
+  return checkedIds;
 }

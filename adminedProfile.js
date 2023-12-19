@@ -166,7 +166,7 @@ function saveChanges() {
           .insert(mappedObjects)
           .then((response) => {
             console.log("Medial history saved seccessfully");
-            window.location.href = "submission.html";
+            window.location.href = "submission.html?userType=A&id=123";
           });
       })
       .catch((error) => {
@@ -228,10 +228,10 @@ function saveChanges() {
             .insert({ id, medical_history: newMedicalHistory.value })
             .then((response) => {
               console.log("Medial history saved seccessfully");
-              window.location.href = "submission.html";
+              window.location.href = "submission.html?userType=A&id=123";
             });
         }
-        window.location.href = "submission.html";
+        window.location.href = "submission.html?userType=A&id=123";
       })
       .catch((error) => {
         console.error("Error inserting to PERSON data:", error);

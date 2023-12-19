@@ -35,17 +35,17 @@ function redirectUser(data){
   if (userData.user_type=="A"){
     localStorage.setItem("userID", userData.id);
     localStorage.setItem("userType", userData.user_type);
-    window.location.href = "admin-main.html";
+    window.location.href = `admin-main.html?id=${userData.id}&userType=A`;
   }
   else if (userData.user_type=="R"){
     localStorage.setItem("userID", userData.id);
     localStorage.setItem("userType", userData.user_type);
-    window.location.href = "main-page.html";
+    window.location.href = `main-page.html?id=${userData.id}&userType=R`;
   }
   else if (userData.user_type=="D"){
     localStorage.setItem("userID", userData.id);
     localStorage.setItem("userType", userData.user_type);
-    window.location.href = "main-page-donor.html";
+    window.location.href = `main-page-donor.html?id=${userData.id}&userType=D`;
   }
 }
 document.getElementById('signin-form').addEventListener('submit', function(event) {
