@@ -270,7 +270,9 @@ async function ConfirmBloodReq(id, date) {
   var { data, error } = await database
     .from("BLOOD_REQUEST")
     .update({ date: dates, id: id, conformed: true,charged:isCharged,price : chargeValue })
-    .match({ date: date, id: id })
+    .match({ date: date, id: id }).then((req)=>{
+      window.location.reload();
+    })
   console.log(error);
 }
 
@@ -352,13 +354,13 @@ async function removeBloodReq(id, date) {
 }
 async function removeDonationReq(id) {
   try {
+    const dicardedTuple = document.getElementsByClassName("d" + id.toString());
+    console.log(dicardedTuple);
+    dicardedTuple[0].remove();
     var { data, error } = await database
       .from("DONTION_REQUEST")
       .delete()
       .eq("id", id);
-    const dicardedTuple = document.getElementsByClassName("d" + id.toString());
-    console.log(dicardedTuple);
-    dicardedTuple[0].remove();
     if (error) {
       console.error("Error deleting user:", error.message);
     } else {
