@@ -96,6 +96,8 @@ async function getConfirmedPayments() {
     var { data, error } = await database.rpc(
       "admin_other_reports_confirmed_payments"
     );
+    console.log(error);
+    console.log(data);
     showConfirmedPayments(data);
 
     if (error) {
@@ -109,6 +111,8 @@ async function getConfirmedPayments() {
 async function getAggregatedBlood() {
   try {
     var { data, error } = await database.rpc("get_aggregated_blood_amount");
+    console.log(error);
+    console.log(data);
     showAggregatedBlood(data[0]);
 
     if (error) {
@@ -232,7 +236,7 @@ const bloodCompatibility = {
   "O+": ["O+", "O-"],
   "O-": ["O-"],
 };
-async function getCompatibleBlood(id, bloodType, payment) {
+async function getCompatibleBlood(id, bloodType, payment, date) {
   openFloatingWindow();
   var { data, error } = await database
     .rpc("get_nonused_blood")
@@ -242,25 +246,34 @@ async function getCompatibleBlood(id, bloodType, payment) {
   console.log(error);
   console.log(bloodType);
   confirmButton = document.querySelector(".confirm-button");
-  confirmButton.setAttribute("onclick", `ConfirmBloodReq("${id}")`);
+  confirmButton.setAttribute("onclick", `ConfirmBloodReq("${id}","${date}")`);
   showCompatibleBlood(data, payment);
 }
-async function ConfirmBloodReq(id) {
+async function ConfirmBloodReq(id, date) {
+  datew = new Date(date);
   chargeInput = document.querySelector("#price");
   selectedBags = getCheckedBoxes();
-
-  if (chargeInput.value == null) {
+  closeFloatingWindow();
+  if (chargeInput.value == null||chargeInput.value==0 ) {
     chargeValue = 0;
+    isCharged = false;
   } else {
     chargeValue = chargeInput.value;
+    isCharged = true;
   }
-  date = new Date();
+  dates = new Date();
   var { data, error } = await database
     .from("BLOOD")
-    .update({ receiving_date: date, rid: id, })
-    .in("tag_number", selectedBags);
+    .update({ receiving_date: dates, Rid: id })
+    .in("tag", selectedBags);
+  console.log(selectedBags);
+  var { data, error } = await database
+    .from("BLOOD_REQUEST")
+    .update({ date: dates, id: id, conformed: true,charged:isCharged })
+    .match({ date: date, id: id }).then((req)=>{
+      // window.location.reload();
+    });
   console.log(error);
-
 }
 
 async function getDonationRequests() {
@@ -317,13 +330,17 @@ async function removeProfileReq(id) {
     console.error("Error performing deletion:", error.message);
   }
 }
-async function removeBloodReq(id) {
+async function removeBloodReq(id, date) {
   try {
+    dates = new Date(date);
     var { data, error } = await database
       .from("BLOOD_REQUEST")
       .delete()
-      .eq("id", id);
-    const dicardedTuple = document.getElementsByClassName("r" + id.toString());
+      .match({ id: id, date: date });
+    console.log(data);
+    const dicardedTuple = document.getElementsByClassName(
+      "r" + id.toString() + date
+    );
     console.log(dicardedTuple);
     dicardedTuple[0].remove();
     if (error) {
@@ -430,24 +447,28 @@ function showProfileRequests(data) {
 }
 function showRecepinetRequests(data) {
   const resReqTable = document.querySelector(".resTable");
-  console.log(resReqTable);
+  console.log(data);
   data.forEach((element) => {
     const resReqTuple = document.createElement("div");
-    resReqTuple.className = `r${element.id}`;
+    resReqTuple.className = `r${element.id}${element.date}`;
     resReqTuple.innerHTML = `<i>${element.fname}</i>
         <i>${element.id}</i>
         <i>${element.blood_type}</i>
         <i>${element.quantity}</i>
         <i>${element.status}</i>
         <i>
-          <button class=rb${element.id} onclick="removeBloodReq(${element.id})">
+          <button class=rb${element.id} onclick='removeBloodReq("${
+      element.id
+    }","${element.date}")'>
             <img
                 src="trash-xmark-svgrepo-com.svg"
                 alt="remove"
                 height="15"
             />
           </button>
-          <button onclick='getCompatibleBlood(${element.id}, "${element.blood_type}", "${element.status}")'>
+          <button onclick='getCompatibleBlood(${element.id}, "${
+      element.blood_type
+    }", "${element.status}","${element.date}")'>
               <img
                 src="check-mark-svgrepo-com.svg"
                 alt="accept"
@@ -649,7 +670,7 @@ function showCompatibleBlood(data, payment) {
     newRow.className = element.tag_number;
     newRow.innerHTML = `<i>${element.blood_type}</i>
     <i>${element.donation_date}</i>
-    <i><input type="checkbox" name="bloodchk1" id="${element.tag_number}"></i>`;
+    <i><input type="checkbox" name="bloodchk1" class="bloodchk" id="${element.tag_number}"></i>`;
     table.append(newRow);
   });
 }
