@@ -254,11 +254,11 @@ async function ConfirmBloodReq(id, date) {
   chargeInput = document.querySelector("#price");
   selectedBags = getCheckedBoxes();
   closeFloatingWindow();
-  if (chargeInput.value == null||chargeInput.value==0 ) {
+  if (chargeInput.value == null||chargeInput.value=="" ) {
     chargeValue = 0;
     isCharged = false;
   } else {
-    chargeValue = chargeInput.value;
+    chargeValue = parseInt(chargeInput.value);
     isCharged = true;
   }
   dates = new Date();
@@ -266,13 +266,11 @@ async function ConfirmBloodReq(id, date) {
     .from("BLOOD")
     .update({ receiving_date: dates, Rid: id })
     .in("tag", selectedBags);
-  console.log(selectedBags);
+  console.log(chargeInput.value);
   var { data, error } = await database
     .from("BLOOD_REQUEST")
-    .update({ date: dates, id: id, conformed: true,charged:isCharged })
-    .match({ date: date, id: id }).then((req)=>{
-      // window.location.reload();
-    });
+    .update({ date: dates, id: id, conformed: true,charged:isCharged,price : chargeValue })
+    .match({ date: date, id: id })
   console.log(error);
 }
 
@@ -557,7 +555,7 @@ function showCollectionDrives(data) {
     otherReportsTable.append(collectionDriveRow);
   });
 }
-function showConfirmedPayments() {
+function showConfirmedPayments(data) {
   const otherReportsTable = document.querySelector(".otherRT");
   otherReportsTable.innerHTML = `<div class="d-r_header"> <i>Recipient  Name</i>
     <i>User ID</i>
@@ -571,13 +569,13 @@ function showConfirmedPayments() {
     confirmedPaymentRow = document.createElement("div");
     confirmedPaymentRow.className = `c${element.id}`;
     confirmedPaymentRow.innerHTML = `
-    <i>${element.fname}</i>
+    <i>${element.name}</i>
     <i>${element.id}</i>
     <i>
         ${element.blood_type}
     </i>
     <i>
-        ${element.requested_amount}
+        ${element.quantity}
     </i>
     <i>
         ${element.price}
